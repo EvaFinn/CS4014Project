@@ -1,21 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
-<meta charset="UTF-8">
-<title> Log In or Register </title>
-<link rel="stylesheet" href="logInStyle.css"/>
+  <meta charset="UTF-8">
+  <title>Welcome to Doc Doc </title>
+      <link rel="stylesheet" href="assets/css/login.css">
 </head>
+
 <body>
-  <h1> Please Log in </h1>
-  <form action="mainPage.html"> 
-   <label for="email">Email:</label>
-	 <input type="email" name="email" pattern="[0-9]{6,9}@(studentmail.ul.ie|ul.ie)" placeholder="Enter your email" required><br/>
-  <label for="password">Password:</label>
-	 <input id="password" required><br/>
-     <input type="submit" value="Log in">
-  </form>
-  <form action="RegistrationForm.html">
-     <input type="submit" value="Register">
-  </form>
+  <body>
+<div class="container">
+	<section id="content">
+		<form action="mainPage.html">
+		    <ul class="errorMessages"></ul>
+			<h1>Login Form</h1>
+			<div>
+				<input type="email" placeholder="email" pattern="[0-9]{6,9}@(studentmail.ul.ie|ul.ie)" required="" id="emailaddress" />
+			</div>
+			<div>
+				<input type="password" placeholder="Password" required="" id="password" />
+			</div>
+			<div>
+				<input type="submit" value="Log in" />
+				<a href="#">Lost your password?</a>
+				<a href="RegistrationForm.html">Register</a>
+			</div>
+		</form><!-- form -->
+	</section><!-- content -->
+</div><!-- container -->
+</body>
+  
+    <script src="js/index2.js"></script>
+
 </body>
 </html>
+
