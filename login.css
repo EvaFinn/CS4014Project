@@ -205,6 +205,59 @@ form:after {
     margin: 30px 15px 0 0;
     text-decoration: underline;
 }
+	#logo {
+				font-family: 'Open Sans Condensed', sans-serif;
+				font-weight: 700;
+				font-size: 2em;
+				letter-spacing: 0.1em;
+		}
+
+		#logo a {
+  				    display: block;
+					float: left;
+					background-image: url("images/pic03.jpg");
+					padding:   0.875em 0.25em;
+					border-radius: 0.2em;
+					text-align: center;
+					box-shadow:  inset -0.1em 0em 0.35em 0em rgba(0, 0, 0, 0.15);
+					text-decoration: none;
+					color: #fff;
+					background-size:auto;
+					position:relative;
+					background-repeat:no-repeat;
+					height:100%;
+					width:14em;
+				}
+
+.topnav {
+    background: #364050 url("images/bg01.png");
+    overflow: hidden;
+}
+.topnav a {
+    color: #aaa;
+	color: rgba(255, 255, 255, 0.55);
+    float: right;
+    display: block;
+    text-align: center;
+	position:relative;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;	
+	text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
+	width: 14em;
+	background: #364050 url("images/bg01.png");
+	overflow-y: auto;
+	left: 0;
+	box-shadow: inset -0.1em 0em 0.35em 0em rgba(0, 0, 0, 0.15);
+}
+.topnav a:hover {
+    background: #364050 url("images/bg01.png");
+    color: #aaa;
+}
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
 .button {
 	background: rgb(247,249,250);
 	background: -moz-linear-gradient(top,  rgba(247,249,250,1) 0%, rgba(240,240,240,1) 100%);
