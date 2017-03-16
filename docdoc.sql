@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2017 at 05:07 PM
+-- Generation Time: Mar 16, 2017 at 11:49 AM
 -- Server version: 5.7.17-log
 -- PHP Version: 5.6.25
 
@@ -17,38 +17,31 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `docdoc`
+-- Database: `docdocv.2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `banned_user`
+-- Table structure for table `banned_users`
 --
 
-CREATE TABLE `banned_user` (
-  `banned_id` mediumint(12) NOT NULL,
-  `banned_email` varchar(32) NOT NULL,
-  `banned_reason` varchar(220) NOT NULL
+CREATE TABLE `banned_users` (
+  `banned_id` int(8) NOT NULL,
+  `banned_email` varchar(64) NOT NULL,
+  `banned_reason` varchar(240) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `claimed_task`
+-- Table structure for table `claimed_tasks`
 --
 
-CREATE TABLE `claimed_task` (
-  `task_id` int(10) UNSIGNED NOT NULL,
-  `hidden_owner_id` mediumint(8) UNSIGNED NOT NULL
+CREATE TABLE `claimed_tasks` (
+  `task_id` int(4) NOT NULL,
+  `hidden_id` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `claimed_task`
---
-
-INSERT INTO `claimed_task` (`task_id`, `hidden_owner_id`) VALUES
-(15189082, 1);
 
 -- --------------------------------------------------------
 
@@ -57,17 +50,10 @@ INSERT INTO `claimed_task` (`task_id`, `hidden_owner_id`) VALUES
 --
 
 CREATE TABLE `flagged_task` (
-  `task_id` mediumint(12) NOT NULL,
-  `pending_review` tinyint(1) NOT NULL,
-  `post_review_status` varchar(30) NOT NULL
+  `task_id` int(4) NOT NULL,
+  `pending _review` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `post_review_status` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `flagged_task`
---
-
-INSERT INTO `flagged_task` (`task_id`, `pending_review`, `post_review_status`) VALUES
-(0, 1, 'Deleted');
 
 -- --------------------------------------------------------
 
@@ -76,7 +62,8 @@ INSERT INTO `flagged_task` (`task_id`, `pending_review`, `post_review_status`) V
 --
 
 CREATE TABLE `localisation` (
-  `language` varchar(20) NOT NULL
+  `code` int(3) NOT NULL,
+  `country_name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -86,34 +73,20 @@ CREATE TABLE `localisation` (
 --
 
 CREATE TABLE `log_in` (
-  `ul_id` mediumint(8) UNSIGNED NOT NULL,
-  `temp_password` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `log_in`
---
-
-INSERT INTO `log_in` (`ul_id`, `temp_password`) VALUES
-(15189082, 'Saturn10');
+  `ul_id` int(8) NOT NULL,
+  `password` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='More secure table for storing id and password';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tag`
+-- Table structure for table `tags`
 --
 
-CREATE TABLE `tag` (
-  `tag_id` int(10) UNSIGNED NOT NULL,
-  `tag_name` varchar(20) DEFAULT NULL
+CREATE TABLE `tags` (
+  `tag_id` int(4) NOT NULL,
+  `tag_name` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `tag`
---
-
-INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES
-(1, 'Math');
 
 -- --------------------------------------------------------
 
@@ -122,33 +95,20 @@ INSERT INTO `tag` (`tag_id`, `tag_name`) VALUES
 --
 
 CREATE TABLE `task` (
-  `ul_id` mediumint(8) UNSIGNED NOT NULL,
-  `task_id` int(10) UNSIGNED NOT NULL,
-  `task_name` varchar(100) NOT NULL,
-  `task_type` varchar(6) NOT NULL,
-  `task_description` varchar(260) NOT NULL,
-  `task_pages` mediumint(6) UNSIGNED NOT NULL,
+  `task_id` int(4) NOT NULL,
+  `task_type` varchar(16) NOT NULL,
+  `task_description` varchar(240) NOT NULL,
+  `task_pages` int(6) NOT NULL,
   `task_words` int(10) NOT NULL,
-  `task_format` varchar(6) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `task`
---
-
-INSERT INTO `task` (`ul_id`, `task_id`, `task_name`, `task_type`, `task_description`, `task_pages`, `task_words`, `task_format`) VALUES
-(15189082, 1, 'Java Object Oriented Programming', 'Thesis', 'This is a thesis on the basis of coverin how to implement object oriented programing in java', 420, 25000, 'pdf');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `task_dates`
---
-
-CREATE TABLE `task_dates` (
-  `task_id` mediumint(12) NOT NULL,
-  `claimed_by_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `submit_by_date` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `task_format` varchar(6) NOT NULL,
+  `claimed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `flagged` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `complete` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `cancelled` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `failed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `claimed_by` datetime NOT NULL,
+  `submit_by` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -158,34 +118,29 @@ CREATE TABLE `task_dates` (
 --
 
 CREATE TABLE `task_feed` (
-  `user_id` mediumint(12) UNSIGNED NOT NULL,
-  `favourite_tags` varchar(12) NOT NULL,
-  `subscribed_tags` varchar(30) NOT NULL,
-  `task_discipline` varchar(30) NOT NULL,
-  `viewed_task` varchar(30) NOT NULL
+  `ul_id` int(8) NOT NULL,
+  `favourite_tag_1_id` int(4) NOT NULL,
+  `favourite_tag_2_id` int(4) NOT NULL,
+  `favourite_tag_3_id` int(4) NOT NULL,
+  `favourite_tag_4_id` int(11) NOT NULL,
+  `subscribed_tasks_id` int(4) NOT NULL,
+  `task_discipline` varchar(24) NOT NULL,
+  `most_recent_viewed_task_id_1` int(4) NOT NULL,
+  `most_recent_viewed_task_id_2` int(4) NOT NULL,
+  `most_recent_viewed_task_id_3` int(4) NOT NULL,
+  `most_recent_viewed_task_id_4` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `task_status`
+-- Table structure for table `task_tag`
 --
 
-CREATE TABLE `task_status` (
-  `task_id` int(10) UNSIGNED NOT NULL,
-  `unclaimed` tinyint(1) DEFAULT NULL,
-  `flagged` tinyint(1) DEFAULT NULL,
-  `complete` tinyint(1) DEFAULT NULL,
-  `cancelled` tinyint(1) DEFAULT NULL,
-  `failed` tinyint(1) DEFAULT NULL
+CREATE TABLE `task_tag` (
+  `tag_id` int(4) NOT NULL,
+  `task_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `task_status`
---
-
-INSERT INTO `task_status` (`task_id`, `unclaimed`, `flagged`, `complete`, `cancelled`, `failed`) VALUES
-(1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -194,60 +149,45 @@ INSERT INTO `task_status` (`task_id`, `unclaimed`, `flagged`, `complete`, `cance
 --
 
 CREATE TABLE `user` (
-  `ul_id` mediumint(8) UNSIGNED NOT NULL,
-  `ul_email` varchar(45) DEFAULT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(80) NOT NULL,
-  `field` varchar(30) NOT NULL,
-  `reputation` tinyint(3) DEFAULT NULL,
-  `is_moderator` tinyint(1) DEFAULT NULL,
-  `is_banned` tinyint(1) DEFAULT NULL,
-  `has_deleted` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`ul_id`, `ul_email`, `first_name`, `last_name`, `field`, `reputation`, `is_moderator`, `is_banned`, `has_deleted`) VALUES
-(15189082, NULL, 'Daniel', 'Keeley', 'Computer Science', 5, 0, 0, 0);
+  `ul_id` int(8) NOT NULL,
+  `ul_email` varchar(36) NOT NULL,
+  `first_name` varchar(16) NOT NULL,
+  `last_name` varchar(26) NOT NULL,
+  `field` varchar(26) NOT NULL,
+  `reputation` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_moderator` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_banned` tinyint(1) UNSIGNED DEFAULT '0',
+  `has_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores all user information for quicker queries';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_tasks`
+-- Table structure for table `user_task`
 --
 
-CREATE TABLE `user_tasks` (
-  `task_id` int(10) UNSIGNED DEFAULT NULL,
-  `claimant_email` varchar(45) DEFAULT NULL,
-  `claimant_first_name` varchar(50) NOT NULL,
-  `claimant_second_name` varchar(80) NOT NULL
+CREATE TABLE `user_task` (
+  `ul_id` int(8) NOT NULL,
+  `task_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user_tasks`
---
-
-INSERT INTO `user_tasks` (`task_id`, `claimant_email`, `claimant_first_name`, `claimant_second_name`) VALUES
-(0, '15189082@studentmail.ul.ie', 'Daniel', 'Keeley'),
-(0, '15189082@studentmail.ul.ie', 'Daniel', 'Keeley');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `banned_user`
+-- Indexes for table `banned_users`
 --
-ALTER TABLE `banned_user`
-  ADD PRIMARY KEY (`banned_id`);
+ALTER TABLE `banned_users`
+  ADD PRIMARY KEY (`banned_id`),
+  ADD UNIQUE KEY `banned_email` (`banned_email`);
 
 --
--- Indexes for table `claimed_task`
+-- Indexes for table `claimed_tasks`
 --
-ALTER TABLE `claimed_task`
-  ADD PRIMARY KEY (`task_id`);
+ALTER TABLE `claimed_tasks`
+  ADD PRIMARY KEY (`task_id`,`hidden_id`),
+  ADD KEY `hidden_id` (`hidden_id`);
 
 --
 -- Indexes for table `flagged_task`
@@ -256,16 +196,23 @@ ALTER TABLE `flagged_task`
   ADD PRIMARY KEY (`task_id`);
 
 --
+-- Indexes for table `localisation`
+--
+ALTER TABLE `localisation`
+  ADD PRIMARY KEY (`code`);
+
+--
 -- Indexes for table `log_in`
 --
 ALTER TABLE `log_in`
   ADD PRIMARY KEY (`ul_id`);
 
 --
--- Indexes for table `tag`
+-- Indexes for table `tags`
 --
-ALTER TABLE `tag`
-  ADD PRIMARY KEY (`tag_id`);
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`tag_id`),
+  ADD UNIQUE KEY `tag_name` (`tag_name`);
 
 --
 -- Indexes for table `task`
@@ -274,43 +221,121 @@ ALTER TABLE `task`
   ADD PRIMARY KEY (`task_id`);
 
 --
--- Indexes for table `task_dates`
---
-ALTER TABLE `task_dates`
-  ADD PRIMARY KEY (`task_id`);
-
---
 -- Indexes for table `task_feed`
 --
 ALTER TABLE `task_feed`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`ul_id`),
+  ADD UNIQUE KEY `subscribed_tasks_id` (`subscribed_tasks_id`),
+  ADD UNIQUE KEY `most_recent_viewed_task_id_1` (`most_recent_viewed_task_id_1`),
+  ADD UNIQUE KEY `most_recent_viewed_task_id_2` (`most_recent_viewed_task_id_2`),
+  ADD UNIQUE KEY `most_recent_viewed_task_id_3` (`most_recent_viewed_task_id_3`),
+  ADD UNIQUE KEY `most_recent_viewed_task_id_4` (`most_recent_viewed_task_id_4`),
+  ADD KEY `favourite_tag_1_id` (`favourite_tag_1_id`),
+  ADD KEY `favourite_tag_2_id` (`favourite_tag_2_id`),
+  ADD KEY `favourite_tag_3_id` (`favourite_tag_3_id`),
+  ADD KEY `favourite_tag_4_id` (`favourite_tag_4_id`);
 
 --
--- Indexes for table `task_status`
+-- Indexes for table `task_tag`
 --
-ALTER TABLE `task_status`
-  ADD PRIMARY KEY (`task_id`);
+ALTER TABLE `task_tag`
+  ADD PRIMARY KEY (`tag_id`,`task_id`),
+  ADD KEY `tag_id` (`tag_id`),
+  ADD KEY `task_id` (`task_id`);
 
 --
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`ul_id`);
+  ADD PRIMARY KEY (`ul_id`),
+  ADD UNIQUE KEY `ul_email` (`ul_email`),
+  ADD KEY `ul_id` (`ul_id`);
+
+--
+-- Indexes for table `user_task`
+--
+ALTER TABLE `user_task`
+  ADD PRIMARY KEY (`ul_id`,`task_id`),
+  ADD KEY `ul_id` (`ul_id`),
+  ADD KEY `task_id` (`task_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tag`
+-- AUTO_INCREMENT for table `localisation`
 --
-ALTER TABLE `tag`
-  MODIFY `tag_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `localisation`
+  MODIFY `code` int(3) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `tag_id` int(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `task_id` int(4) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `banned_users`
+--
+ALTER TABLE `banned_users`
+  ADD CONSTRAINT `banned_users_ibfk_1` FOREIGN KEY (`banned_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `banned_users_ibfk_2` FOREIGN KEY (`banned_email`) REFERENCES `user` (`ul_email`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `claimed_tasks`
+--
+ALTER TABLE `claimed_tasks`
+  ADD CONSTRAINT `claimed_tasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `claimed_tasks_ibfk_2` FOREIGN KEY (`hidden_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flagged_task`
+--
+ALTER TABLE `flagged_task`
+  ADD CONSTRAINT `flagged_task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `log_in`
+--
+ALTER TABLE `log_in`
+  ADD CONSTRAINT `log_in_ibfk_1` FOREIGN KEY (`ul_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `task_feed`
+--
+ALTER TABLE `task_feed`
+  ADD CONSTRAINT `task_feed_ibfk_1` FOREIGN KEY (`ul_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_2` FOREIGN KEY (`favourite_tag_1_id`) REFERENCES `tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_3` FOREIGN KEY (`favourite_tag_2_id`) REFERENCES `tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_4` FOREIGN KEY (`favourite_tag_3_id`) REFERENCES `tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_5` FOREIGN KEY (`favourite_tag_4_id`) REFERENCES `tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_6` FOREIGN KEY (`most_recent_viewed_task_id_1`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_7` FOREIGN KEY (`most_recent_viewed_task_id_2`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_8` FOREIGN KEY (`most_recent_viewed_task_id_3`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_9` FOREIGN KEY (`most_recent_viewed_task_id_4`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `task_tag`
+--
+ALTER TABLE `task_tag`
+  ADD CONSTRAINT `task_tag_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_tag_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_task`
+--
+ALTER TABLE `user_task`
+  ADD CONSTRAINT `user_task_ibfk_1` FOREIGN KEY (`ul_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
