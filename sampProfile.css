@@ -1,0 +1,53 @@
+
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+.tab h1{  
+     padding:5px;
+     font-weight:bold;
+	 font-size:150%;
+}
+.tab p{
+    color:#c94663;
+    font-style: oblique;
+}
+#profile {
+  background-image: url(images/images.png); 
+  float:left;
+  background-repeat: no-repeat;
+  border-radius:50%;
+}
+div.main{
+   border:1px solid #ccc;
+   background-color:#f1f1f1;
+}
+.main h1{
+   padding:5px;
+   margin:30px;
+   font-weight:bold;
+   font-size:200%;
+   text-decoration:underline;
+}
+.main a{
+   float:right;
+   margin:10px;
+}
+.info{
+   overflow:hidden;
+   width:50%;
+   margin:30px;
+}
+.info table{
+ border: 1px solid #ddd;
+ border-collapse: collapse;
+ }
+
+.info td{
+    border-bottom: 1px solid #A9A9A9;
+	 padding: 8px;
+}
+.info tr:hover {
+    background-color: #A9A9A9;
+}
