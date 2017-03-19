@@ -12,31 +12,28 @@
 </head>
 <body>
 <?php
-	if (isset($_POST) && count ($_POST) > 0) {
+	if (isset($_POST['submit'])) {
+		try{
 		//$id = $_SESSION["user_id"];
-		$title = htmlspecialchars(trim($_POST["title"]));
-		$subject = htmlspecialchars(trim($_POST["subject"]));
-		$count = htmlspecialchars(trim($_POST["count"]));
-		$pages = htmlspecialchars(trim($_POST["pages"]));
-		$description = htmlspecialchars(trim($_POST["description"]));
-		$tags = htmlspecialchars(trim($_POST["Tags"]));
+		$title = (isset($_POST['title'])?$_POST['title']:'');
+		$subject = (isset($_POST['subject'])?$_POST['subject']:'');
+		$count = (isset($_POST['count'])?$_POST['count']:'');
+		$pages = (isset($_POST['pages'])?$_POST['pages']:'');
+		$description = (isset($_POST['description'])?$_POST['description']:'');
+		$tags = (isset($_POST['tags'])?$_POST['tags']:'');
 		//$format = htmlspecialchars(trim($+POST["txtUploadFile[]"]))
 		
-		/*if ( $title == '' || $subject == '' || $count == '' || $pages == '' || $description == '' || $tags == '') {
-			echo <script type= 'text/javascript'>alert('Fill in all fields')</script>;
-		} else {*/
-			$dbh = new PDO("mysql:host=localhost;dbname=Project", "root", "");
-			$query = "INSERT INTO `task` (`task_id`, 'task_title', `task_type`, `task_description`, `task_pages`, `task_words`) VALUES (NULL, :title, :subject, :description, :pages, :count)"; //NOW(), DATE_ADD(NOW(), INTERVAL 15 DAY) )";
-			$stmt = $dbh->prepare($query);
+		$dbh = new PDO("mysql:host=localhost;dbname=Project", "root", "");
+		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query = "INSERT INTO 'task' ('task_id', 'task_title', 'task_type', 'task_description', 'task_pages', 'task_words') VALUES (NULL, :title, :subject, :description, :pages, :count)"; 
+		$stmt = $dbh->prepare($query);
 			
-			$affectedRows = $stmt->execute(array(':title' => $title, ':subject' => $subject, ':description' => $description, ':pages' => $pages, ':count' => $count));
-			
-			/*if ($affectedRows > 0) {
-					$insertId = $dbh->lastInsertId();
-					printf("<h2> Your <a href=\"./item.php?id=%s\">item</a> will soon appear in our website. The advertisement will expire on %s. <br>\n", $insertId, $expiryDate);
-							
-			}*/
-		//}
+		$stmt->execute(array(':title' => $title, ':subject' => $subject, ':description' => $description, ':pages' => $pages, ':count' => $count));
+		echo "New task created successfully";
+		}catch(PDOExeption $e){
+			echo "Error: " + $e->getMessage();
+		}
+		$dbh=null;
 	}	
 ?>
   <div id="content">
@@ -67,7 +64,7 @@
 		<li>
 		  <label> Document Tags</label>
 		  <p>Please seperate tags with a comma i.e Science, Sports, Fitness ect</p>
-		  <input type="text" name="Tags"/>
+		  <input type="text" name="tags"/>
 		</li>
         <li>
 		   <form action="uploadFile.php" method="post" onsubmit="return validateUploadFile();" enctype="multipart/form-data" >
@@ -77,7 +74,7 @@
                        <div class="span_right"><input type="file" name="txtUploadFile[]"  /></div>
 				   </div>
 			</form>
-		   <input type="submit" value="Submit" />
+		   <input type="submit" value="Submit" name="submit"/>
         </li>
         </ul>
      </form> 
