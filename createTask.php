@@ -1,4 +1,8 @@
-
+<?php
+/*if(!isset($_SESSION['login'])) { //if login in session is not set
+    header("Location: LogInPage.php");
+}*/
+?>
 <html >
 <head>
 <title> Create Task </title>
