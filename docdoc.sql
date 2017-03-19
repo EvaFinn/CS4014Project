@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2017 at 04:39 PM
+-- Generation Time: Mar 19, 2017 at 06:05 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -42,6 +42,16 @@ CREATE TABLE `claimed_tasks` (
   `task_id` int(4) NOT NULL,
   `hidden_id` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deleted_tasks`
+--
+
+CREATE TABLE `deleted_tasks` (
+  `task_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -205,6 +215,12 @@ ALTER TABLE `claimed_tasks`
   ADD KEY `hidden_id` (`hidden_id`);
 
 --
+-- Indexes for table `deleted_tasks`
+--
+ALTER TABLE `deleted_tasks`
+  ADD PRIMARY KEY (`task_id`);
+
+--
 -- Indexes for table `flagged_task`
 --
 ALTER TABLE `flagged_task`
@@ -310,6 +326,12 @@ ALTER TABLE `banned_users`
 ALTER TABLE `claimed_tasks`
   ADD CONSTRAINT `claimed_tasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `claimed_tasks_ibfk_2` FOREIGN KEY (`hidden_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `deleted_tasks`
+--
+ALTER TABLE `deleted_tasks`
+  ADD CONSTRAINT `deleted_tasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `flagged_task`
