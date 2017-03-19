@@ -7,12 +7,12 @@ $db_name = "docdoc";
 $tbl_name = "log_in";
 
 //Connect to server and select databse
-mysql_connect("$host", "$username", "$password")or die("cannot connect"); 
+@mysql_connect("$host", "$username", "$password")or die("cannot connect"); 
 mysql_select_db("$db_name")or die("cannot select DB");
 
 // username and password sent from form 
-$myusername=$_POST['id']; 
-$mypassword=$_POST['password'];
+$myusername=(isset($_POST['ul_id']) ? $_POST['ul_id'] : ''); 
+$mypassword=(isset($_POST['password']) ? $_POST['ul_id'] : '');
 
 $myusername = stripslashes($myusername);
 $mypassword = stripslashes($mypassword);
