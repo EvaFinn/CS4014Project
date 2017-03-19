@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html >
 <head>
 <title> Create Task </title>
@@ -11,6 +11,34 @@
 </div>
 </head>
 <body>
+<?php
+	if (isset($_POST) && count ($_POST) > 0) {
+		//$id = $_SESSION["user_id"];
+		$title = htmlspecialchars(trim($_POST["title"]));
+		$subject = htmlspecialchars(trim($_POST["subject"]));
+		$count = htmlspecialchars(trim($_POST["count"]));
+		$pages = htmlspecialchars(trim($_POST["pages"]));
+		$description = htmlspecialchars(trim($_POST["description"]));
+		$tags = htmlspecialchars(trim($_POST["Tags"]));
+		//$format = htmlspecialchars(trim($+POST["txtUploadFile[]"]))
+		
+		/*if ( $title == '' || $subject == '' || $count == '' || $pages == '' || $description == '' || $tags == '') {
+			echo <script type= 'text/javascript'>alert('Fill in all fields')</script>;
+		} else {*/
+			$dbh = new PDO("mysql:host=localhost;dbname=Project", "root", "");
+			$query = "INSERT INTO `task` (`task_id`, 'task_title', `task_type`, `task_description`, `task_pages`, `task_words`) VALUES (NULL, :title, :subject, :description, :pages, :count)"; //NOW(), DATE_ADD(NOW(), INTERVAL 15 DAY) )";
+			$stmt = $dbh->prepare($query);
+			
+			$affectedRows = $stmt->execute(array(':title' => $title, ':subject' => $subject, ':description' => $description, ':pages' => $pages, ':count' => $count));
+			
+			/*if ($affectedRows > 0) {
+					$insertId = $dbh->lastInsertId();
+					printf("<h2> Your <a href=\"./item.php?id=%s\">item</a> will soon appear in our website. The advertisement will expire on %s. <br>\n", $insertId, $expiryDate);
+							
+			}*/
+		//}
+	}	
+?>
   <div id="content">
 	<div class="inner">
 	<h1>Create Task </h1>
