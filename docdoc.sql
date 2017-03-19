@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2017 at 11:49 AM
--- Server version: 5.7.17-log
+-- Generation Time: Mar 19, 2017 at 04:39 PM
+-- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -77,6 +77,13 @@ CREATE TABLE `log_in` (
   `password` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='More secure table for storing id and password';
 
+--
+-- Dumping data for table `log_in`
+--
+
+INSERT INTO `log_in` (`ul_id`, `password`) VALUES
+(15189082, 'Escalofrios20');
+
 -- --------------------------------------------------------
 
 --
@@ -96,6 +103,7 @@ CREATE TABLE `tags` (
 
 CREATE TABLE `task` (
   `task_id` int(4) NOT NULL,
+  `task_title` varchar(64) NOT NULL,
   `task_type` varchar(16) NOT NULL,
   `task_description` varchar(240) NOT NULL,
   `task_pages` int(6) NOT NULL,
@@ -159,6 +167,13 @@ CREATE TABLE `user` (
   `is_banned` tinyint(1) UNSIGNED DEFAULT '0',
   `has_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores all user information for quicker queries';
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`ul_id`, `ul_email`, `first_name`, `last_name`, `field`, `reputation`, `is_moderator`, `is_banned`, `has_deleted`) VALUES
+(15189082, '', '', '', '', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
