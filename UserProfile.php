@@ -6,66 +6,48 @@
 <!DOCTYPE html>
 <html >
 <head>
-<title> Create Task </title>
+<title>User Profile</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
-<link rel="stylesheet" href="assets/css/task.css"/>
+<link rel="stylesheet" href="assets/css/sampProfile.css"/>
 <div class="topnav" id="myTopnav">
-           <a href="logInPage.php"> Log Out</a>
+           <a href="LogOut.php"> Log Out</a>
            <a href="mainPage.php">Home</a>
 		   <a href="FAQ.php">FAQ</a>       
 </div>
 </head>
 <body>
-  <div id="content">
-	<div class="inner">
-	<h1>Create Task </h1>
-	 <div class="task">
-	 <form method="POST">
-       <ul>
-       <li>
-	      <label>Document Title</label>
-	      <input type="text" name="title"/>
-       <li>
-          <label>Field of Topic</label>
-          <input type="text" name="subject"/>
-       </li>
-	   <li>
-         <label>Word Count</label>
-         <input type="text" name="count"/>
-       </li>
-       <li>
-	      <label>Number of Pages</label>
-		    <input type="text"name="pages"/>
-	    </li>
-        <li>
-          <label>Document Description</label>
-           <textarea name="field5" id="description"></textarea>
-        </li>
-		<li>
-		  <label> Document Tags</label>
-		  <p>Please seperate tags with a comma i.e Science, Sports, Fitness ect</p>
-		  <input type="text" name="Tags"/>
-		</li>
-        <li>
-		   <form action="uploadFile.php" method="post" onsubmit="return validateUploadFile();" enctype="multipart/form-data" >
-                <p><input type="hidden" name="MAX_FILE_SIZE" value="100000" /></p>
-                   <div class="uploadFileprompt">
-                       <div class="span_left">File 1 to upload - Max. 100kb</div>
-                       <div class="span_right"><input type="file" name="txtUploadFile[]"  /></div>
-				   </div>
-			</form>
-		   <input type="submit" value="Submit" />
-        </li>
-        </ul>
-     </form> 
-	 </div>
+    <div id="content">
+   	    <div class="inner">
+		  <div class="tab">
+			      <img src="images/images.png" alt="" id="profile"></a>
+				  <h1> User Name</h1>
+				  
+          </div>
+		  <div class="main">
+		  <a href="editProfile.html"> Edit Profile</a>
+		    <h1> About User: </h1>
+			<table class="info">
+			<tr>
+			 <td>Happiness Points</td>
+			 <td>10</td>
+			</tr>
+			<tr>
+			 <td>Field of Study</td>
+			 <td>Computer Science</td>
+			</tr>
+			<tr>
+			  <td>Contact Email</td>
+			  <td> example@ul.ie</td>
+			</tr>
+			</table>
+		  </div>
+		</div>
 	</div>
-  </div>
-<!-- Sidebar -->
+	<!-- Sidebar -->
 			<div id="sidebar">
 
 				<!-- Logo -->
-					<h1 id="logo"><a href="mainPage.php"></a></h1>
+					<h1 id="logo"><a href="mainPage.html"></a></h1>
 
 				<!-- Nav -->
 					<nav id="nav">
@@ -87,8 +69,6 @@
                            ?>   
 						</ul>
 					</nav>
-
-				<!-- Calendar Do we need? might be useful -->
 					<section class="box calendar">
 						<div class="inner">
 							<table>
@@ -105,7 +85,7 @@
 									</tr>
 								</thead>
 								<tbody>
-								<tr>
+									<tr>
 										<td colspan="4" class="pad"><span>&nbsp;</span></td>
 										<td><span>1</span></td>
 										<td><span>2</span></td>
@@ -114,7 +94,7 @@
 									<tr>
 										<td><span>4</span></td>
 										<td><span>5</span></td>
-										<td><span>6</span></td>
+										<td><a href="#">6</a></td>
 										<td><span>7</span></td>
 										<td><span>8</span></td>
 										<td><span>9</span></td>
@@ -124,7 +104,7 @@
 										<td><span>11</span></td>
 										<td><span>12</span></td>
 										<td><span>13</span></td>
-                                        <td><span>14</span></td>
+										<td class="today"><a href="#">14</a></td>
 										<td><span>15</span></td>
 										<td><span>16</span></td>
 										<td><span>17</span></td>
@@ -132,14 +112,14 @@
 									<tr>
 										<td><span>18</span></td>
 										<td><span>19</span></td>
-									  	<td class="today"><a href="#">20</a></td>
+										<td><span>20</span></td>
 										<td><span>21</span></td>
 										<td><span>22</span></td>
-										<td><span>23</span></td>
+										<td><a href="#">23</a></td>
 										<td><span>24</span></td>
 									</tr>
 									<tr>
-										<td><span>25</span></td>
+										<td><a href="#">25</a></td>
 										<td><span>26</span></td>
 										<td><span>27</span></td>
 										<td><span>28</span></td>
@@ -149,5 +129,6 @@
 							</table>
 						</div>
 					</section>
+   <script src="assets/js/sampJS.js"></script>
 </body>
 </html>

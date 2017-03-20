@@ -6,9 +6,8 @@
 <!DOCTYPE html>
 <html >
 <head>
-<title> Create Task </title>
+<title>View Task</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
-<link rel="stylesheet" href="assets/css/task.css"/>
 <div class="topnav" id="myTopnav">
            <a href="logInPage.php"> Log Out</a>
            <a href="mainPage.php">Home</a>
@@ -16,61 +15,52 @@
 </div>
 </head>
 <body>
-  <div id="content">
-	<div class="inner">
-	<h1>Create Task </h1>
-	 <div class="task">
-	 <form method="POST">
-       <ul>
-       <li>
-	      <label>Document Title</label>
-	      <input type="text" name="title"/>
-       <li>
-          <label>Field of Topic</label>
-          <input type="text" name="subject"/>
-       </li>
-	   <li>
-         <label>Word Count</label>
-         <input type="text" name="count"/>
-       </li>
-       <li>
-	      <label>Number of Pages</label>
-		    <input type="text"name="pages"/>
-	    </li>
-        <li>
-          <label>Document Description</label>
-           <textarea name="field5" id="description"></textarea>
-        </li>
-		<li>
-		  <label> Document Tags</label>
-		  <p>Please seperate tags with a comma i.e Science, Sports, Fitness ect</p>
-		  <input type="text" name="Tags"/>
-		</li>
-        <li>
-		   <form action="uploadFile.php" method="post" onsubmit="return validateUploadFile();" enctype="multipart/form-data" >
-                <p><input type="hidden" name="MAX_FILE_SIZE" value="100000" /></p>
-                   <div class="uploadFileprompt">
-                       <div class="span_left">File 1 to upload - Max. 100kb</div>
-                       <div class="span_right"><input type="file" name="txtUploadFile[]"  /></div>
-				   </div>
-			</form>
-		   <input type="submit" value="Submit" />
-        </li>
-        </ul>
-     </form> 
-	 </div>
-	</div>
-  </div>
-<!-- Sidebar -->
+		<div id="content">
+				<div class="inner">
+				<p> Task's Information </p>
+				<?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "softwarepro";
+                $db_name = "docdoc"; 
+                $tbl_name = "task";
+                // Create connection
+               $conn = new mysqli($servername, $username, $password, $db_name);
+               // Check connection
+               if ($conn->connect_error) {
+               die("Connection failed: " . $conn->connect_error);
+              } 
+			   $sql = "SELECT * FROM `task` WHERE task_id='111'";
+			   $result = mysqli_query($conn,$sql);
+			   if (mysqli_num_rows($result) > 0) {
+			     while($row = mysqli_fetch_assoc($result)) {
+				  echo "Title: " . $row["task_title"]. 
+				  "<br>Desciption: " . $row["task_description"].
+				  "<br>Pages: ".$row["task_pages"].
+				  "<br>Word Count:".$row["task_words"].
+				  "<br>Format:".$row["task_format"].
+				  "<br>Due:".$row["submit_by"].
+				  "<br>Claim Before:".$row["claimed_by"]. "<br>";
+				  
+				 }
+			   }       
+             $conn->close();
+             ?>
+			 <form action="claimTask.php">
+			 <input type="submit" value="Claim Task">
+			 </form>
+			</div>
+		</div>
+	<!-- Sidebar -->
 			<div id="sidebar">
 
 				<!-- Logo -->
-					<h1 id="logo"><a href="mainPage.php"></a></h1>
+					<h1 id="logo"><a href="mainPage.html"></a></h1>
 
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<?php
+						<?php
                              if (isset($_SESSION["ul_id"]) && $_SESSION["ul_id"] != '' && $_SESSION["is_Moderator"]=='1'){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
@@ -82,13 +72,11 @@
 							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								
 							}							
                            ?>   
 						</ul>
 					</nav>
-
-				<!-- Calendar Do we need? might be useful -->
+	
 					<section class="box calendar">
 						<div class="inner">
 							<table>
@@ -105,7 +93,7 @@
 									</tr>
 								</thead>
 								<tbody>
-								<tr>
+							<tr>
 										<td colspan="4" class="pad"><span>&nbsp;</span></td>
 										<td><span>1</span></td>
 										<td><span>2</span></td>
@@ -149,5 +137,6 @@
 							</table>
 						</div>
 					</section>
+
 </body>
 </html>

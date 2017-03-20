@@ -6,62 +6,68 @@
 <!DOCTYPE html>
 <html >
 <head>
-<title> Create Task </title>
+<title>Moderator Tasks</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
-<link rel="stylesheet" href="assets/css/task.css"/>
 <div class="topnav" id="myTopnav">
-           <a href="logInPage.php"> Log Out</a>
-           <a href="mainPage.php">Home</a>
-		   <a href="FAQ.php">FAQ</a>       
+          <a href="logInPage.php"> Log Out</a>
+          <a href="mainPage.php">Home</a>
+		  <a href="FAQ.php">FAQ</a>       
 </div>
 </head>
 <body>
-  <div id="content">
-	<div class="inner">
-	<h1>Create Task </h1>
-	 <div class="task">
-	 <form method="POST">
-       <ul>
-       <li>
-	      <label>Document Title</label>
-	      <input type="text" name="title"/>
-       <li>
-          <label>Field of Topic</label>
-          <input type="text" name="subject"/>
-       </li>
-	   <li>
-         <label>Word Count</label>
-         <input type="text" name="count"/>
-       </li>
-       <li>
-	      <label>Number of Pages</label>
-		    <input type="text"name="pages"/>
-	    </li>
-        <li>
-          <label>Document Description</label>
-           <textarea name="field5" id="description"></textarea>
-        </li>
-		<li>
-		  <label> Document Tags</label>
-		  <p>Please seperate tags with a comma i.e Science, Sports, Fitness ect</p>
-		  <input type="text" name="Tags"/>
-		</li>
-        <li>
-		   <form action="uploadFile.php" method="post" onsubmit="return validateUploadFile();" enctype="multipart/form-data" >
-                <p><input type="hidden" name="MAX_FILE_SIZE" value="100000" /></p>
-                   <div class="uploadFileprompt">
-                       <div class="span_left">File 1 to upload - Max. 100kb</div>
-                       <div class="span_right"><input type="file" name="txtUploadFile[]"  /></div>
-				   </div>
-			</form>
-		   <input type="submit" value="Submit" />
-        </li>
-        </ul>
-     </form> 
-	 </div>
-	</div>
-  </div>
-<!-- Sidebar -->
+		<div id="content">
+				<div class="inner">
+				<h1> Tasks for review</h1>
+				
+           <!--   <div>   if (!(isset($success_message))) {echo "Unexpected error, please try again";}
+                   else { echo  "Task sucessfully deleted";}   php not working atm
+			  </div>-->
+				<div class="boxed"> <!--Apple it to generated list of items-->
+				<?php
+                 $servername = "localhost";
+                 $username = "root";
+                 $password = "softwarepro";
+                 $db_name = "docdoc"; 
+                 // Create connection
+                 $conn = new mysqli($servername, $username, $password, $db_name);
+                // Check connection
+               if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+                }    
+             	 $sql = "SELECT * FROM `task` where task.flagged = '1'";
+				 $result = mysqli_query($conn,$sql);
+				 $num=mysqli_num_rows($result);
+                 $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
+				 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+                 { 
+				  echo "<h1>" . $row["task_title"]. "</h1>";
+				  echo "<p>Desciption: " . $row["task_description"].
+				  "<br>Pages: ".$row["task_pages"]."</p>";
+				  echo"<p>Word Count:".$row["task_words"]."</p>";		
+                  echo "<div class=\"boxed2\">";
+				  $currentTask=$row["task_id"];
+				   $tags="SELECT tag_name FROM `task_tag` where task_id = $currentTask";
+				   $tresult=mysqli_query($conn,$tags);
+				   $num=mysqli_num_rows($result);
+				   $trow=mysqli_fetch_array($tresult,MYSQLI_ASSOC);
+				   while($trow=mysqli_fetch_array($tresult, MYSQLI_ASSOC)){
+				      echo "#" ,$trow["tag_name"]. ",";
+				   }
+				  echo" </div>
+                        <div class=\"boxed\">
+						  <a href=\"./deleteTask.php\"> Delete Task</a>
+						  <a href=\"./viewTask.php\"> View Task</a> 
+						  <a href=\"./banUser.php\"> Ban User</a>	           
+                        </div></br>";						
+                 }				 
+			    
+                $conn->close();
+                 ?>
+                         </div>
+					
+				</div>
+				</div>
+	<!-- Sidebar -->
 			<div id="sidebar">
 
 				<!-- Logo -->
@@ -70,25 +76,26 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<?php
+						
+						 <?php
                              if (isset($_SESSION["ul_id"]) && $_SESSION["ul_id"] != '' && $_SESSION["is_Moderator"]=='1'){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
+								
 								
 				            }
                             else{
 							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								
+								printf("<li class=\"current\"><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 							}							
                            ?>   
 						</ul>
 					</nav>
 
-				<!-- Calendar Do we need? might be useful -->
+			
 					<section class="box calendar">
 						<div class="inner">
 							<table>
@@ -149,5 +156,6 @@
 							</table>
 						</div>
 					</section>
+
 </body>
 </html>
