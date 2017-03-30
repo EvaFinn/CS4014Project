@@ -1,0 +1,15 @@
+Things to Do:           -Claim Task(not working atm) - Aoife 
+                        -Task Stream(Customise with tags, don’t show deleted or flagged tasks, don’t show tasks that are past deadline )
+                        -Registration
+                        -Validation of sign up
+                        -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) - Aoife
+                        -View create tasks/my tasks(list should appear with task status i.e claimed, unclaimed, cancelled.  Task owner can view claimants email, first and last name if task claimed)
+                       -Reviewer Rating( Task owner to give feedback on completed work, i.e happy/unhappy. + or – 5 reputation depending on rating)
+                        -Search (Tags or titles or users) - Aoife
+                        - View Task( Clean up layout) - Aoife
+                        - User Reputation(10 marks for each claimed task, 2 marks for flagging tasks)
+                        - View Claimed task list(Sort by deadline date for priority, when viewing task they should be able to request document, mask as complete and give option of brief textual review,
+                          cancel task claim if cancelled reduce reputation by 15 marks,  failed submission reduces reputation by 30 marks and claimed status removed )  - Aoife
+                        -	ModTasks(40 marks == mark user asmod, mod tasks mostly done need to be cleaned up + be able to ban users)
+                        -	FILL DB at least 80 tasks (covering different test cases) at least 20 unique tags at least 20 different users, save and put inserts in file 
+
