@@ -12,4 +12,5 @@ Things to Do:           -Claim Task(not working atm) - Aoife
                           cancel task claim if cancelled reduce reputation by 15 marks,  failed submission reduces reputation by 30 marks and claimed status removed )  - Aoife
                         -	ModTasks(40 marks == mark user asmod, mod tasks mostly done need to be cleaned up + be able to ban users)
                         -	FILL DB at least 80 tasks (covering different test cases) at least 20 unique tags at least 20 different users, save and put inserts in file 
-
+                        -USER PROFILE (display logged in users details, have things hidden if its not logged in users i.e editing profile and private details email ect. 
+                                       be able to edit own profile, i.e user name, personal details not email as we already validated it) 
