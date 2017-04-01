@@ -1,18 +1,26 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['username'])) {header("Location: LogInPage.php");}
+?>
 <!DOCTYPE html>
 <html >
 <head>
 <title>Ban User</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
-           <a href="logInPage.php"> Log Out</a>
-           <a href="mainPage.php">Home</a>
-		   <a href="FAQ.php">FAQ</a>       
+            <?php
+		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+                 printf("<a href=\"./LogOut.php\"> Log Out</a>");
+                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./FAQ.php\">FAQ</a>");
+				}	
+            ?>        
 </div>
 </head>
 <body>
 		<div id="content">
 				<div class="inner">
-				  <h1>Ban User: </h1>
+				  <h2>Ban User:</h2><!--Search for user ID using the task ID -->
 	                <div class="task">
 	                  <form action="" method="POST"> <!--Create php to update banned user table with user details and remove user from user list -->
 					   <label>Reason For Ban</label>
@@ -32,19 +40,19 @@
 					<nav id="nav">
 						<ul>
 						<?php
-                             if (isset($_SESSION["ul_id"]) && $_SESSION["ul_id"] != '' && $_SESSION["is_Moderator"]=='1'){ 
+                             if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
-                                printf("<li class=\"current\"><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
+								printf("<li><a href=\"./ModTasks.php\">Moderator Taks</a></li>");
 								
 				            }
                             else{
 							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
-                                printf("<li class=\"current\"><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 							}							
-                           ?>   
+                           ?> 
 						</ul>
 					</nav>
 	
