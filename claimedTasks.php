@@ -1,23 +1,73 @@
 <?php
-/*if(!isset($_SESSION['login'])) { //if login in session is not set
-    header("Location: LogInPage.php");
-}*/
+  session_start();
+  if(!isset($_SESSION['username'])) {header("Location: LogInPage.php");}
 ?>
 <!DOCTYPE html>
 <html >
 <head>
-<title>User Profile</title>
+<title>Claimed Tasks</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
-          <a href="logInPage.php"> Log Out</a>
-          <a href="mainPage.php">Home</a>
-		  <a href="FAQ.php">FAQ</a>       
+          <?php
+		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+                 printf("<a href=\"./LogOut.php\"> Log Out</a>");
+                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./FAQ.php\">FAQ</a>");
+				}	
+            ?>      
 </div>
 </head>
 <body>
 		<div id="content">
 				<div class="inner">
-				 <h1> NO Claimed Tasks currently</h1>
+				<h2> Tasks for review</h2>
+			    <h1> Warning, cancelling tasks or failing to review tasks before deadline will reduce user reputation</h1>
+           <!--   <div>   if (!(isset($success_message))) {echo "Unexpected error, please try again";}
+                   else { echo  "Task sucessfully deleted";}   php not working atm
+			  </div>-->
+				<div class="boxed"> 
+				<?php
+				 $userID = $_SESSION['username'];
+                 $servername = "localhost";
+                 $username = "root";
+                 $password = "softwarepro";
+                 $db_name = "docdoc"; 
+                 // Create connection
+                 $conn = new mysqli($servername, $username, $password, $db_name);
+                // Check connection
+               if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+                }    
+             	 $sql = "SELECT * FROM `task` NATURAL JOIN `claimed_tasks` where task.claimed = '1' AND claimed_tasks.hidden_id = $userID";
+				 $result = mysqli_query($conn,$sql);
+				 $num=mysqli_num_rows($result);
+              	 while($row = mysqli_fetch_array($result))
+                 { 
+				  echo "<h1>" . $row["task_title"]. "</h1>";
+				  echo "<p>Desciption: " . $row["task_description"].
+				  "<br>Pages: ".$row["task_pages"]."</p>";
+				  echo"<p>Word Count:".$row["task_words"]."</p>";		
+				  echo"<p>Task ID:".$row["task_id"]."</p>";		
+                  echo "<div class=\"boxed2\">";
+				  $currentTask=$row["task_id"];
+				   $tags="SELECT tag_name FROM `task_tag` where task_id = $currentTask";
+				   $tresult=mysqli_query($conn,$tags);
+				   $num=mysqli_num_rows($result);
+				   while($trow=mysqli_fetch_array($tresult)){
+				      echo "#" ,$trow["tag_name"]. ",";
+				   }
+				  echo" </div>
+                        <div class=\"boxed\">
+						  <a href=\"./cancelTask.php?task_id=$currentTask\"> Cancel Task</a>
+						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a> 
+						  <a href=\"./banUser.php?task_id=$currentTask\"> Ban User</a>	           
+                        </div></br>";						
+                 }				 
+			    
+                $conn->close();
+                 ?>
+                         </div>
+					
 				</div>
 				</div>
 	<!-- Sidebar -->
@@ -30,7 +80,7 @@
 					<nav id="nav">
 						<ul>
 						<?php
-                             if (isset($_SESSION["ul_id"]) && $_SESSION["ul_id"] != '' && $_SESSION["is_Moderator"]=='1'){ 
+                             if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
