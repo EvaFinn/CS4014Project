@@ -1,7 +1,6 @@
 <?php
-/*if(!isset($_SESSION['login'])) { //if login in session is not set
-    header("Location: LogInPage.php");
-}*/
+  session_start();
+  if(!isset($_SESSION['username'])) {header("Location: LogInPage.php");}
 ?>
 <!DOCTYPE html>
 <html >
@@ -9,20 +8,24 @@
 <title>Moderator Tasks</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
-          <a href="logInPage.php"> Log Out</a>
-          <a href="mainPage.php">Home</a>
-		  <a href="FAQ.php">FAQ</a>       
+          <?php
+		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+                 printf("<a href=\"./LogOut.php\"> Log Out</a>");
+                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./FAQ.php\">FAQ</a>");
+				}	
+            ?>      
 </div>
 </head>
 <body>
 		<div id="content">
 				<div class="inner">
-				<h1> Tasks for review</h1>
+				<h2> Tasks for review</h2>
 				
            <!--   <div>   if (!(isset($success_message))) {echo "Unexpected error, please try again";}
                    else { echo  "Task sucessfully deleted";}   php not working atm
 			  </div>-->
-				<div class="boxed"> <!--Apple it to generated list of items-->
+				<div class="boxed"> 
 				<?php
                  $servername = "localhost";
                  $username = "root";
@@ -37,27 +40,26 @@
              	 $sql = "SELECT * FROM `task` where task.flagged = '1'";
 				 $result = mysqli_query($conn,$sql);
 				 $num=mysqli_num_rows($result);
-                 $row=mysqli_fetch_array($result, MYSQLI_ASSOC);
-				 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC))
+                 while($row = mysqli_fetch_array($result))
                  { 
 				  echo "<h1>" . $row["task_title"]. "</h1>";
 				  echo "<p>Desciption: " . $row["task_description"].
 				  "<br>Pages: ".$row["task_pages"]."</p>";
 				  echo"<p>Word Count:".$row["task_words"]."</p>";		
+				  echo"<p>Task ID:".$row["task_id"]."</p>";		
                   echo "<div class=\"boxed2\">";
 				  $currentTask=$row["task_id"];
 				   $tags="SELECT tag_name FROM `task_tag` where task_id = $currentTask";
 				   $tresult=mysqli_query($conn,$tags);
-				   $num=mysqli_num_rows($result);
-				   $trow=mysqli_fetch_array($tresult,MYSQLI_ASSOC);
-				   while($trow=mysqli_fetch_array($tresult, MYSQLI_ASSOC)){
+				   $num=mysqli_num_rows($result);				  
+				   while($trow=mysqli_fetch_array($tresult)){
 				      echo "#" ,$trow["tag_name"]. ",";
 				   }
 				  echo" </div>
                         <div class=\"boxed\">
-						  <a href=\"./deleteTask.php\"> Delete Task</a>
-						  <a href=\"./viewTask.php\"> View Task</a> 
-						  <a href=\"./banUser.php\"> Ban User</a>	           
+						  <a href=\"./deleteTask.php?task_id=$currentTask\"> Delete Task</a>
+						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a> 
+						  <a href=\"./banUser.php?task_id=$currentTask\"> Ban User</a>	           
                         </div></br>";						
                  }				 
 			    
@@ -77,19 +79,18 @@
 					<nav id="nav">
 						<ul>
 						
-						 <?php
-                             if (isset($_SESSION["ul_id"]) && $_SESSION["ul_id"] != '' && $_SESSION["is_Moderator"]=='1'){ 
+						<?php
+                             if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								
+								printf("<li class=\"current\"><a href=\"./ModTasks.php\">Moderator Taks</a></li>");
 								
 				            }
                             else{
-							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
+							    printf("<li class=\"current\"><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li class=\"current\"><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
+                                printf("<li ><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 							}							
                            ?>   
 						</ul>
