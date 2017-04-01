@@ -1,7 +1,6 @@
 <?php
-/*if(!isset($_SESSION['login'])) { //if login in session is not set
-    header("Location: LogInPage.php");
-}*/
+  session_start();
+  if(!isset($_SESSION['username'])) {header("Location: LogInPage.php");}
 ?>
 <!DOCTYPE html>
 <html >
@@ -9,9 +8,13 @@
 <title>View Task</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
-           <a href="logInPage.php"> Log Out</a>
-           <a href="mainPage.php">Home</a>
-		   <a href="FAQ.php">FAQ</a>       
+           <?php
+		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){/* NEED TO FIX SO LOGGED IN USER IS SET*/ 
+                 printf("<a href=\"./LogOut.php\"> Log Out</a>");
+                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./FAQ.php\">FAQ</a>");
+				}	
+            ?>       
 </div>
 </head>
 <body>
@@ -24,13 +27,14 @@
                 $password = "softwarepro";
                 $db_name = "docdoc"; 
                 $tbl_name = "task";
+				$currentT= $_GET['task_id'];
                 // Create connection
                $conn = new mysqli($servername, $username, $password, $db_name);
                // Check connection
                if ($conn->connect_error) {
                die("Connection failed: " . $conn->connect_error);
               } 
-			   $sql = "SELECT * FROM `task` WHERE task_id='111'";
+			   $sql = "SELECT * FROM `task` WHERE task_id='$currentT'";
 			   $result = mysqli_query($conn,$sql);
 			   if (mysqli_num_rows($result) > 0) {
 			     while($row = mysqli_fetch_assoc($result)) {
@@ -45,8 +49,8 @@
 				 }
 			   }       
              $conn->close();
-             ?>
-			 <form action="claimTask.php">
+             ?> <!--Change so the user cannot claim task if it is their task-->
+			 <form action="claimTaskCode.php">
 			 <input type="submit" value="Claim Task">
 			 </form>
 			</div>
@@ -60,20 +64,21 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-						<?php
-                             if (isset($_SESSION["ul_id"]) && $_SESSION["ul_id"] != '' && $_SESSION["is_Moderator"]=='1'){ 
-                                printf("<li><a href=\"./mainPage.php\">Home</a></li>");
+							   <?php			   
+                             if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
+                                printf("<li class=\"current\"><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
-							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
+							    printf("<li class=\"current\"><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								
 							}							
-                           ?>   
+                           ?>  
 						</ul>
 					</nav>
 	
