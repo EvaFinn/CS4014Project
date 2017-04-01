@@ -3,7 +3,7 @@ Things to Do:           -Claim Task(not working atm) - Aoife
                         -Registration
                         -Validation of sign up
                         -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) - Aoife
-                        -View create tasks/my tasks(list should appear with task status i.e claimed, unclaimed, cancelled.  Task owner can view claimants email, first and last name if task claimed)
+                        -View create tasks/my tasks(list should appear with task status i.e claimed, unclaimed, cancelled.  Task owner can view claimants email, first and last name if task claimed) -Aoife
                        -Reviewer Rating( Task owner to give feedback on completed work, i.e happy/unhappy. + or – 5 reputation depending on rating)
                         -Search (Tags or titles or users) - Aoife
                         - View Task( Clean up layout) - Aoife
