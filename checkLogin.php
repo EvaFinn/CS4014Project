@@ -1,32 +1,37 @@
 <?php
+session_start();
 $host = "localhost"; //host name
 $username = "root"; //username
 $password = "softwarepro"; //pass
 $db_name = "docdoc"; 
-$tbl_name = "log_in";
+$tbl_name = `log_in`;
 //Connect to server and select databse
-@mysql_connect("$host", "$username", "$password")or die("cannot connect"); 
-mysql_select_db("$db_name")or die("cannot select DB");
+$conn = new mysqli($host, $username, $password, $db_name);
+if ($conn->connect_error) {
+                             die("Connection failed: " . $conn->connect_error);
+                              } 
 // username and password sent from form 
 $myusername=(isset($_POST['ul_id']) ? $_POST['ul_id'] : ''); 
-$mypassword=(isset($_POST['password']) ? $_POST['ul_id'] : '');
-$myusername = stripslashes($myusername);
-$mypassword = stripslashes($mypassword);
-$myusername = mysql_real_escape_string($myusername);
-$mypassword = mysql_real_escape_string($mypassword);
-$sql="SELECT * FROM $tbl_name WHERE ul_id='$myusername' and password='$mypassword'";
-$result=mysql_query($sql);
+$mypassword=(isset($_POST['password']) ? $_POST['password'] : '');
+$sql="SELECT * FROM `log_in` WHERE ul_id='$myusername' and password='$mypassword'";
+$result=mysqli_query($conn, $sql);
 // Mysql_num_row is counting table row
-$count=mysql_num_rows($result);
+$count=mysqli_num_rows($result);
 // If result matched $myusername and $mypassword, table row must be 1 row
 if($count==1){
 // Register $myusername, $mypassword and redirect to file "login_success.php"
-session_register("myusername");
-session_register("mypassword"); 
-header("mainPage.html");
+$_SESSION['username']= "$myusername";
+$_SESSION['password']= "$password";
+   $sql1 ="SELECT * FROM `user` WHERE ul_id =$myusername";
+   $res=mysqli_query($conn,$sql1);
+   $data=mysqli_fetch_array($res);
+    if($data["is_moderator"] == 1){
+	  $isMod = 1;}
+    else{ $isMod=0;}	  
+$_SESSION['is_moderator'] = "$isMod";
+header("Location: mainPage.php");
 }
 else {
         printf("Invalid username or password");
-       // header("Location: LogInPage.php"); //Redirect user back to your login form
 }
 ?>
