@@ -1,6 +1,6 @@
 Things to Do:           -Claim Task(not working atm) - Aoife 
                         -Task Stream(Customise with tags, don’t show deleted or flagged tasks, don’t show tasks that are past deadline )
-                        -Registration
+                        -Registration - Eva
                         -Validation of sign up
                         -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) - Aoife
                         -View create tasks/my tasks(list should appear with task status i.e claimed, unclaimed, cancelled.  Task owner can view claimants email, first and last name if task claimed) -Aoife
