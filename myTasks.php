@@ -1,57 +1,120 @@
 <?php
-/*if(!isset($_SESSION['login'])) { //if login in session is not set
-    header("Location: LogInPage.php");
-}*/
+  session_start();
+  if(!isset($_SESSION['username'])) {header("Location: LogInPage.php");}
 ?>
 <!DOCTYPE html>
 <html >
 <head>
-<title>User Profile</title>
+<title>My Tasks</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
-           <a href="logInPage.php"> Log Out</a>
-           <a href="mainPage.php">Home</a>
-		   <a href="FAQ.php">FAQ</a>       
+           <?php
+		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+                 printf("<a href=\"./LogOut.php\"> Log Out</a>");
+                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./FAQ.php\">FAQ</a>");
+				}	
+            ?>          
 </div>
 </head>
 <body>
 		<div id="content">
 				<div class="inner">
-				<h1> Currently no tasks published </h1>
+				<h2> My Tasks</h2>
+			           <!--   <div>   if (!(isset($success_message))) {echo "Unexpected error, please try again";}
+                   else { echo  "Task sucessfully deleted";}   php not working atm
+			  </div>-->
+				<div class="boxed"> 
+				<?php
+				 $userID = $_SESSION['username'];
+                 $servername = "localhost";
+                 $username = "root";
+                 $password = "softwarepro";
+                 $db_name = "docdoc"; 
+                 // Create connection
+                 $conn = new mysqli($servername, $username, $password, $db_name);
+                // Check connection
+               if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+                }    
+             	 $sql = "SELECT * FROM `task` NATURAL JOIN `user_task` where user_task.ul_id = $userID";
+				 $result = mysqli_query($conn,$sql);
+				 $num=mysqli_num_rows($result);
+              	 while($row = mysqli_fetch_array($result))
+                 { 
+				  echo "<h1>" . $row["task_title"]. "</h1>";
+				  echo "<p>Desciption: " . $row["task_description"].
+				  "<br>Pages: ".$row["task_pages"]."</p>";
+				  echo"<p>Word Count:".$row["task_words"]."</p>";		
+				  if($row["cancelled"]==1){
+				  echo"<p>Claimed Status: Cancelled";}
+				  else{if($row["claimed"]==1){echo"<p>Claimed Status: Claimed</p>";}
+				  else{echo"<p>Claimed Status: Unclaimed";}
+				  }
+                  echo "<div class=\"boxed2\">";// Change so claimed user name and email display as well 
+				  $currentTask=$row["task_id"];
+				   $tags="SELECT tag_name FROM `task_tag` where task_id = $currentTask";
+				   $tresult=mysqli_query($conn,$tags);
+				   $num=mysqli_num_rows($result);
+				   while($trow=mysqli_fetch_array($tresult)){
+				      echo "#" ,$trow["tag_name"]. ",";
+				   }
+				  echo" </div>
+                        <div class=\"boxed\">
+						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a>         
+                        </div></br>";			
+                 }				 
+			    
+                $conn->close();
+                 ?>
+                         </div>
+					
 				</div>
 				</div>
 	<!-- Sidebar -->
 			<div id="sidebar">
 
 				<!-- Logo -->
-					<h1 id="logo"><a href="mainPage.html"></a></h1>
+					<h1 id="logo"><a href="mainPage.php"></a></h1>
 
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
 						<?php
-                             if (isset($_SESSION["ul_id"]) && $_SESSION["ul_id"] != '' && $_SESSION["is_Moderator"]=='1'){ 
+                             if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li class=\"current\"><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
+                                printf("<li ><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								printf("<li><a href=\"./ModTasks.php\">Moderator Taks</a></li>");
 								
 				            }
                             else{
-							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
-                                printf("<li class=\"current\"><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+							    printf("<li ><a href=\"./mainPage.php\">Home</a></li>");
+                                printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 							}							
                            ?>   
 						</ul>
 					</nav>
-	
+
+			
 					<section class="box calendar">
 						<div class="inner">
 							<table>
 								<caption>March 2017</caption>
 								<thead>
-								<tr>
+									<tr>
+										<th scope="col" title="Monday">M</th>
+										<th scope="col" title="Tuesday">T</th>
+										<th scope="col" title="Wednesday">W</th>
+										<th scope="col" title="Thursday">T</th>
+										<th scope="col" title="Friday">F</th>
+										<th scope="col" title="Saturday">S</th>
+										<th scope="col" title="Sunday">S</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
 										<td colspan="4" class="pad"><span>&nbsp;</span></td>
 										<td><span>1</span></td>
 										<td><span>2</span></td>
