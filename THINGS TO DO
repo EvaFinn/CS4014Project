@@ -5,7 +5,7 @@ Things to Do:           -Claim Task(not working atm) - Aoife
                         -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) - Aoife
                         -View create tasks/my tasks(list should appear with task status i.e claimed, unclaimed, cancelled.  Task owner can view claimants email, first and last name if task claimed) -Aoife
                        -Reviewer Rating( Task owner to give feedback on completed work, i.e happy/unhappy. + or – 5 reputation depending on rating)
-                        -Search (Tags or titles or users) 
+                        -Search (Tags or titles or users) - Shíofra
                         - View Task( Clean up layout) - Aoife
                         - User Reputation(10 marks for each claimed task, 2 marks for flagging tasks)
                         - View Claimed task list(Sort by deadline date for priority, when viewing task they should be able to request document, mask as complete and give option of brief textual review,
