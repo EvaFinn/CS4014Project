@@ -1,18 +1,20 @@
 <?php
-/*if(!isset($_SESSION['login'])) { //if login in session is not set
-    header("Location: LogInPage.php");
-}*/
+  session_start();
+  if(!isset($_SESSION['username'])) {header("Location: LogInPage.php");}
 ?>
 <!DOCTYPE html>
 <html >
 <head>
-<title> Create Task </title>
+<title>Claimed Tasks</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
-<link rel="stylesheet" href="assets/css/task.css"/>
 <div class="topnav" id="myTopnav">
-           <a href="logInPage.php"> Log Out</a>
-           <a href="mainPage.php">Home</a>
-		   <a href="FAQ.php">FAQ</a>       
+          <?php
+		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+                 printf("<a href=\"./LogOut.php\"> Log Out</a>");
+                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./FAQ.php\">FAQ</a>");
+				}	
+            ?>      
 </div>
 </head>
 <body>
@@ -20,7 +22,7 @@
 	<div class="inner">
 	<h1>Create Task </h1>
 	 <div class="task">
-	 <form method="POST">
+	 <form action="insertTask.php" method="POST">
        <ul>
        <li>
 	      <label>Document Title</label>
@@ -41,21 +43,22 @@
           <label>Document Description</label>
            <textarea name="field5" id="description"></textarea>
         </li>
-		<li>
+      	<li>
 		  <label> Document Tags</label>
-		  <p>Please seperate tags with a comma i.e Science, Sports, Fitness ect</p>
-		  <input type="text" name="Tags"/>
+		  <p>Please input between 1 and 5 tags describing the topics of your paper</p>
+		  <label> Tag 1</label>
+		  <input type="text" name="tag1"/>
+		    <label> Tag 1</label>
+		  <input type="text" name="tag2"/>
+		    <label> Tag 3</label>
+		  <input type="text" name="tag3"/>
+		    <label> Tag 4</label>
+		  <input type="text" name="tag4"/>
+		    <label> Tag 5</label>
+		  <input type="text" name="tag5"/>
 		</li>
-        <li>
-		   <form action="uploadFile.php" method="post" onsubmit="return validateUploadFile();" enctype="multipart/form-data" >
-                <p><input type="hidden" name="MAX_FILE_SIZE" value="100000" /></p>
-                   <div class="uploadFileprompt">
-                       <div class="span_left">File 1 to upload - Max. 100kb</div>
-                       <div class="span_right"><input type="file" name="txtUploadFile[]"  /></div>
-				   </div>
-			</form>
-		   <input type="submit" value="Submit" />
-        </li>
+		   <input type="submit" value="Submit" name="submit"/>       
+        </ul>
         </ul>
      </form> 
 	 </div>
@@ -69,23 +72,20 @@
 
 				<!-- Nav -->
 					<nav id="nav">
-						<ul>
-							<?php
-                             if (isset($_SESSION["ul_id"]) && $_SESSION["ul_id"] != '' && $_SESSION["is_Moderator"]=='1'){ 
+						<?php
+                             if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
+                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								printf("<li><a href=\"./ModTasks.php\">Moderator Taks</a></li>");
 								
 				            }
                             else{
-							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
+							    printf("<li ><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								
+                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 							}							
                            ?>   
-						</ul>
 					</nav>
 
 				<!-- Calendar Do we need? might be useful -->
@@ -105,7 +105,7 @@
 									</tr>
 								</thead>
 								<tbody>
-								<tr>
+									<tr>
 										<td colspan="4" class="pad"><span>&nbsp;</span></td>
 										<td><span>1</span></td>
 										<td><span>2</span></td>
@@ -114,7 +114,7 @@
 									<tr>
 										<td><span>4</span></td>
 										<td><span>5</span></td>
-										<td><span>6</span></td>
+										<td><a href="#">6</a></td>
 										<td><span>7</span></td>
 										<td><span>8</span></td>
 										<td><span>9</span></td>
@@ -124,7 +124,7 @@
 										<td><span>11</span></td>
 										<td><span>12</span></td>
 										<td><span>13</span></td>
-                                        <td><span>14</span></td>
+										<td class="today"><a href="#">14</a></td>
 										<td><span>15</span></td>
 										<td><span>16</span></td>
 										<td><span>17</span></td>
@@ -132,14 +132,14 @@
 									<tr>
 										<td><span>18</span></td>
 										<td><span>19</span></td>
-									  	<td class="today"><a href="#">20</a></td>
+										<td><span>20</span></td>
 										<td><span>21</span></td>
 										<td><span>22</span></td>
-										<td><span>23</span></td>
+										<td><a href="#">23</a></td>
 										<td><span>24</span></td>
 									</tr>
 									<tr>
-										<td><span>25</span></td>
+										<td><a href="#">25</a></td>
 										<td><span>26</span></td>
 										<td><span>27</span></td>
 										<td><span>28</span></td>
