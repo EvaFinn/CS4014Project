@@ -1,10 +1,14 @@
+<?php
+  session_start();
+  if(!isset($_SESSION['username'])) {header("Location: LogInPage.php");}
+?>
 <!DOCTYPE html>
 <html >
 <head>
 <title> FAQ</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
-		    <a href="#" onclick="goBack()">Back</a>      <!-- not working atm -->
+		    <a href="#" onclick="history.go(-1);">Back</a>  
 </div>
 </head>
 <body>
