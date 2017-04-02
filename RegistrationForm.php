@@ -8,34 +8,33 @@
         </div>
 </head>
 <body>
-  <body>
+  <body>  
 	<div class="container">
 	  <section id="content">
-       <form action="Validation.php"> <!-- once registered will direct to validation page -->
+       <form action="insertUser.php" method="POST">
 	     <h1> Registation Form </h1>
 		    <div>
                  <input type="email" name="email" pattern="[0-9]{6,7,8,9}@(studentmail.ul.ie|ul.ie)" placeholder="Enter your email" required>
 		    </div>
 		    <div>
-                 <input type="text" placeholder="UL ID Number" required>
+                 <input type="text" placeholder="UL ID Number" pattern="[0-9]{6,7,8,9}" required name="IDnum">
             </div>
 			<div>
-	             <input type="text" placeholder="name">
+	             <input type="text" placeholder="name" name="firstName">
 			</div>
             <div>
-	             <input type="text" placeholder="surename"> 
+	             <input type="text" placeholder="surname" name="lastName"> 
 		    </div>
 			<div>
-			     <input type="text" placeholder="Field Of Study">
+			     <input type="text" placeholder="Field Of Study" name="field">
 		    </div>
 			<div>
-	             <input type="submit" value="Register">
+	             <input type="submit" value="Register" name="register">
 				 <a href="LogInPage.php">Cancel</a>
 		    </div>
        </form>
 	  </section><!-- content -->
     </div><!-- container -->
   </body>
-  <script src="js/index2.js"></script>
 </body>
 </html>
