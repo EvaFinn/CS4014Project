@@ -9,15 +9,10 @@
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }  
-	$sql ="INSERT INTO flagged_task(`task_id`, `pending _review`, `post_review_status`) VALUES (111,0,Null)";
-	$sql = "UPDATE task SET flagged=1 WHERE task_id=111"; //Match ID of task stream not established yet
-  
-			if ($conn->query($sql) === TRUE) {
-    $success_message = "New record created successfully";
-
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+	$currentT=$_GET['task_id'];
+	$sql ="INSERT INTO flagged_task(`task_id`, `pending _review`, `post_review_status`) VALUES (111,0,'');";
+	$sql .= "UPDATE task SET flagged='1' WHERE task_id='$currentT'"; //Match ID of task stream not established yet
+    mysqli_multi_query($conn, $sql) or die("MySQL Error: " . mysqli_error($conn) . "<hr>\nQuery: $sql");
     $conn->close();
 	header("Location: mainPage.php");
 ?>
