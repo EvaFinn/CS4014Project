@@ -21,9 +21,6 @@
 		<div id="content">
 				<div class="inner">
 				<h2> My Tasks</h2>
-			           <!--   <div>   if (!(isset($success_message))) {echo "Unexpected error, please try again";}
-                   else { echo  "Task sucessfully deleted";}   php not working atm
-			  </div>-->
 				<div class="boxed"> 
 				<?php
 				 $userID = $_SESSION['username'];
