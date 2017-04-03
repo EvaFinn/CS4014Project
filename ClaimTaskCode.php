@@ -1,29 +1,36 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "Escalofrios20";
+$password = "softwarepro";
 $db_name = "docdoc"; 
-$tbl_name = "deleted_tasks";
+$userID  = $_GET['userID'];
+$currentT=$_GET['task_id']; 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $db_name);
+$conn1= new mysqli($servername, $username, $password, $db_name);
+// Check connection
+if ($conn1->connect_error) {
+    die("Connection failed: " . $conn1->connect_error);
+}
+$query = "SELECT * FROM `user_task` WHERE task_id =$currentT";
+$res= mysqli_query($conn1,$query);
+$result = mysqli_fetch_assoc($res);
+if(!($result["ul_id"] =$userID))
+{
+ $conn = new mysqli($servername, $username, $password, $db_name);
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$sql = "INSERT INTO 'claimed' ('task_id')
-VALUES ($_GET('task_id')";
 
-$sql2 = "SELECT 'ul_id FROM 'user_task' WHERE 'task_id' = $_GET('task_id')"; 
-
-mysqli_query($sql);
-$hidden_id = mysqli_query($sql2);
-
-if ($conn->query($sql) === TRUE) {
-    $success_message = "New record created successfully";
-	header("Location: ModTasks.php");
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+$sql = "INSERT INTO `claimed_tasks`(`task_id`, `hidden_id`) VALUES ($currentT,$userID);";
+$sql .= "UPDATE `task` SET `claimed` = '1' WHERE `task`.`task_id` = $currentT";
+mysqli_multi_query($conn, $sql) or die("MySQL Error: " . mysqli_error($conn) . "<hr>\nQuery: $sql");
+header("Location: claimedTasks.php");
 }
-
+else
+{
+  header("Location:mainPage.php");
+}
+$conn1->close();
 $conn->close();
 ?>
