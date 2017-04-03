@@ -40,7 +40,6 @@
                 }    
              	 $sql = "SELECT * FROM `task` NATURAL JOIN `claimed_tasks` where task.claimed = '1' AND claimed_tasks.hidden_id = $userID";
 				 $result = mysqli_query($conn,$sql);
-				 $num=mysqli_num_rows($result);
               	 while($row = mysqli_fetch_array($result))
                  { 
 				  echo "<h1>" . $row["task_title"]. "</h1>";
@@ -60,7 +59,7 @@
                         <div class=\"boxed\">
 						  <a href=\"./cancelTask.php?task_id=$currentTask\"> Cancel Task</a>
 						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a> 
-						  <a href=\"./banUser.php?task_id=$currentTask\"> Ban User</a>	           
+						  <a href=\"\"> Request File</a>	           
                         </div></br>";						
                  }				 
 			    
