@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2017 at 06:05 PM
+-- Generation Time: Apr 03, 2017 at 01:16 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -39,8 +39,7 @@ CREATE TABLE `banned_users` (
 --
 
 CREATE TABLE `claimed_tasks` (
-  `task_id` int(4) NOT NULL,
-  `hidden_id` int(8) NOT NULL
+  `task_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -64,35 +63,6 @@ CREATE TABLE `flagged_task` (
   `pending _review` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `post_review_status` varchar(36) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `localisation`
---
-
-CREATE TABLE `localisation` (
-  `code` int(3) NOT NULL,
-  `country_name` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `log_in`
---
-
-CREATE TABLE `log_in` (
-  `ul_id` int(8) NOT NULL,
-  `password` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='More secure table for storing id and password';
-
---
--- Dumping data for table `log_in`
---
-
-INSERT INTO `log_in` (`ul_id`, `password`) VALUES
-(15189082, 'Escalofrios20');
 
 -- --------------------------------------------------------
 
@@ -163,11 +133,12 @@ CREATE TABLE `task_tag` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `unverified_user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `unverified_user` (
   `ul_id` int(8) NOT NULL,
+  `password` varchar(60) NOT NULL,
   `ul_email` varchar(36) NOT NULL,
   `first_name` varchar(16) NOT NULL,
   `last_name` varchar(26) NOT NULL,
@@ -175,15 +146,16 @@ CREATE TABLE `user` (
   `reputation` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `is_moderator` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `is_banned` tinyint(1) UNSIGNED DEFAULT '0',
-  `has_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+  `has_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `verification_code` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores all user information for quicker queries';
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `unverified_user`
 --
 
-INSERT INTO `user` (`ul_id`, `ul_email`, `first_name`, `last_name`, `field`, `reputation`, `is_moderator`, `is_banned`, `has_deleted`) VALUES
-(15189082, '', '', '', '', 0, 0, 0, 0);
+INSERT INTO `unverified_user` (`ul_id`, `password`, `ul_email`, `first_name`, `last_name`, `field`, `reputation`, `is_moderator`, `is_banned`, `has_deleted`, `verification_code`) VALUES
+(15189082, '', '', '', '', '', 0, 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
@@ -195,6 +167,32 @@ CREATE TABLE `user_task` (
   `ul_id` int(8) NOT NULL,
   `task_id` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verified_user`
+--
+
+CREATE TABLE `verified_user` (
+  `ul_id` int(8) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `ul_email` varchar(36) NOT NULL,
+  `first_name` varchar(16) NOT NULL,
+  `last_name` varchar(26) NOT NULL,
+  `field` varchar(26) NOT NULL,
+  `reputation` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_moderator` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_banned` tinyint(1) UNSIGNED DEFAULT '0',
+  `has_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores all user information for quicker queries';
+
+--
+-- Dumping data for table `verified_user`
+--
+
+INSERT INTO `verified_user` (`ul_id`, `password`, `ul_email`, `first_name`, `last_name`, `field`, `reputation`, `is_moderator`, `is_banned`, `has_deleted`) VALUES
+(15189082, '', '', '', '', '', 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -211,8 +209,7 @@ ALTER TABLE `banned_users`
 -- Indexes for table `claimed_tasks`
 --
 ALTER TABLE `claimed_tasks`
-  ADD PRIMARY KEY (`task_id`,`hidden_id`),
-  ADD KEY `hidden_id` (`hidden_id`);
+  ADD PRIMARY KEY (`task_id`);
 
 --
 -- Indexes for table `deleted_tasks`
@@ -225,18 +222,6 @@ ALTER TABLE `deleted_tasks`
 --
 ALTER TABLE `flagged_task`
   ADD PRIMARY KEY (`task_id`);
-
---
--- Indexes for table `localisation`
---
-ALTER TABLE `localisation`
-  ADD PRIMARY KEY (`code`);
-
---
--- Indexes for table `log_in`
---
-ALTER TABLE `log_in`
-  ADD PRIMARY KEY (`ul_id`);
 
 --
 -- Indexes for table `tags`
@@ -275,9 +260,9 @@ ALTER TABLE `task_tag`
   ADD KEY `task_id` (`task_id`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `unverified_user`
 --
-ALTER TABLE `user`
+ALTER TABLE `unverified_user`
   ADD PRIMARY KEY (`ul_id`),
   ADD UNIQUE KEY `ul_email` (`ul_email`),
   ADD KEY `ul_id` (`ul_id`);
@@ -291,14 +276,17 @@ ALTER TABLE `user_task`
   ADD KEY `task_id` (`task_id`);
 
 --
+-- Indexes for table `verified_user`
+--
+ALTER TABLE `verified_user`
+  ADD PRIMARY KEY (`ul_id`),
+  ADD UNIQUE KEY `ul_email` (`ul_email`),
+  ADD KEY `ul_id` (`ul_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `localisation`
---
-ALTER TABLE `localisation`
-  MODIFY `code` int(3) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tags`
 --
@@ -317,15 +305,14 @@ ALTER TABLE `task`
 -- Constraints for table `banned_users`
 --
 ALTER TABLE `banned_users`
-  ADD CONSTRAINT `banned_users_ibfk_1` FOREIGN KEY (`banned_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `banned_users_ibfk_2` FOREIGN KEY (`banned_email`) REFERENCES `user` (`ul_email`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `banned_users_ibfk_1` FOREIGN KEY (`banned_id`) REFERENCES `verified_user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `banned_users_ibfk_2` FOREIGN KEY (`banned_email`) REFERENCES `verified_user` (`ul_email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `claimed_tasks`
 --
 ALTER TABLE `claimed_tasks`
-  ADD CONSTRAINT `claimed_tasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `claimed_tasks_ibfk_2` FOREIGN KEY (`hidden_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `claimed_tasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `deleted_tasks`
@@ -340,16 +327,10 @@ ALTER TABLE `flagged_task`
   ADD CONSTRAINT `flagged_task_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `log_in`
---
-ALTER TABLE `log_in`
-  ADD CONSTRAINT `log_in_ibfk_1` FOREIGN KEY (`ul_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `task_feed`
 --
 ALTER TABLE `task_feed`
-  ADD CONSTRAINT `task_feed_ibfk_1` FOREIGN KEY (`ul_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `task_feed_ibfk_1` FOREIGN KEY (`ul_id`) REFERENCES `verified_user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `task_feed_ibfk_2` FOREIGN KEY (`favourite_tag_1_id`) REFERENCES `tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `task_feed_ibfk_3` FOREIGN KEY (`favourite_tag_2_id`) REFERENCES `tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `task_feed_ibfk_4` FOREIGN KEY (`favourite_tag_3_id`) REFERENCES `tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -370,7 +351,7 @@ ALTER TABLE `task_tag`
 -- Constraints for table `user_task`
 --
 ALTER TABLE `user_task`
-  ADD CONSTRAINT `user_task_ibfk_1` FOREIGN KEY (`ul_id`) REFERENCES `user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_task_ibfk_1` FOREIGN KEY (`ul_id`) REFERENCES `verified_user` (`ul_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_task_ibfk_2` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
