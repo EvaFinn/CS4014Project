@@ -2,10 +2,9 @@ Things to Do:           -Task Stream(Customise with tags, don’t show tasks tha
                         -Registration - Eva
                         -Validation of sign up
                         -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) - Aoife
-                        -View create tasks/my tasks(list should appear with task status i.e claimed, unclaimed, cancelled.  Task owner can view claimants email, first and last name if task claimed) -Aoife
+                        -View create tasks/my tasks(Task owner can view claimants email, first and last name if task claimed) -Aoife
                        -Reviewer Rating( Task owner to give feedback on completed work, i.e happy/unhappy. + or – 5 reputation depending on rating)
-                        -Search (Tags or titles or users) - Shíofra
-                        - View Task( Clean up layout) - Aoife
+                        -Search (Tags or titles or users) - Shíofra               
                         - User Reputation(10 marks for each claimed task, 2 marks for flagging tasks)
                         - View Claimed task list(Sort by deadline date for priority, when viewing task they should be able to request document, mask as complete and give option of brief textual review,
                           cancel task claim if cancelled reduce reputation by 15 marks,  failed submission reduces reputation by 30 marks and claimed status removed )  - Aoife
@@ -13,4 +12,6 @@ Things to Do:           -Task Stream(Customise with tags, don’t show tasks tha
                         -	FILL DB at least 80 tasks (covering different test cases) at least 20 unique tags at least 20 different users, save and put inserts in file 
                         -USER PROFILE (display logged in users details, have things hidden if its not logged in users i.e editing profile and private details email ect. 
                                        be able to edit own profile, i.e user name, personal details not email as we already validated it) - AOIFE 
-DONE: Claim task -Aoife
+DONE: Claim task
+      Unclaim Task  
+      View Task 
