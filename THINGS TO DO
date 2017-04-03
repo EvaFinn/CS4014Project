@@ -1,4 +1,4 @@
-Things to Do:           -Task Stream(Customise with tags, don’t show deleted or flagged tasks, don’t show tasks that are past deadline )
+Things to Do:           -Task Stream(Customise with tags, don’t show tasks that are past deadline )
                         -Registration - Eva
                         -Validation of sign up
                         -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) - Aoife
