@@ -57,9 +57,10 @@
 				   }
 				  echo" </div>
                         <div class=\"boxed\">
-						  <a href=\"./cancelTask.php?task_id=$currentTask\"> Cancel Task</a>
+						  <a href=\"./cancelReview.php?task_id=$currentTask\"> Cancel Task</a>
 						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a> 
 						  <a href=\"\"> Request File</a>	           
+						  <a href=\"\"> Review Task</a>	           
                         </div></br>";						
                  }				 
 			    
