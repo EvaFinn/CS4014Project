@@ -25,9 +25,21 @@ $_SESSION['password']= "$password";
    $sql1 ="SELECT * FROM `user` WHERE ul_id =$myusername";
    $res=mysqli_query($conn,$sql1);
    $data=mysqli_fetch_array($res);
-    if($data["is_moderator"] == 1){
-	  $isMod = 1;}
-    else{ $isMod=0;}	  
+    if($data["reputation"]>=40){
+	$sql2 = "UPDATE `user` SET is_moderator=1 WHERE ul_id=$myusername";
+	   $res1=mysqli_query($conn,$sql2);
+	 $isMod=1;} 
+   
+    else{ 
+	if($data["reputation"]<40){
+	$sql3 = "UPDATE `user` SET is_moderator=0 WHERE ul_id=$myusername";
+	   $res2=mysqli_query($conn,$sql3);
+	 $isMod=0;
+	}
+	else{
+	 $isMod=0;
+	 }
+	}	  
 $_SESSION['is_moderator'] = "$isMod";
 header("Location: mainPage.php");
 }
