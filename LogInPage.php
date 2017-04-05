@@ -19,7 +19,7 @@
 				<input name="password" type="password" placeholder="Password" required="" id="password" />
 			</div>
 			<div>			   
-				<input name="password" type="submit" value="Log in" />
+				<input name="login" type="submit" value="Log in" />
 				<a href="LostPassword.html">Lost your password?</a>
 				<a href="RegistrationForm.html">Register</a>
 			</div>
