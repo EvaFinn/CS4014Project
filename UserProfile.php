@@ -20,30 +20,47 @@
 </head>
 <body>
     <div id="content">
-   	    <div class="inner">
-		  <div class="tab">
-			      <img src="images/images.png" alt="" id="profile"></a>
-				  <h1> User Name</h1>
-				  
-          </div>
-		  <div class="main">
-		  <a href="editProfile.html"> Edit Profile</a>
-		    <h1> About User: </h1>
-			<table class="info">
-			<tr>
-			 <td>Happiness Points</td>
-			 <td>10</td>
-			</tr>
-			<tr>
-			 <td>Field of Study</td>
-			 <td>Computer Science</td>
-			</tr>
-			<tr>
-			  <td>Contact Email</td>
-			  <td> example@ul.ie</td>
-			</tr>
-			</table>
-		  </div>
+   	    <div class="inner">	
+		  <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "softwarepro";
+                $db_name = "docdoc";          
+				$currentU = $_SESSION['username'];
+                // Create connection
+               $conn = new mysqli($servername, $username, $password, $db_name);
+               // Check connection
+               if ($conn->connect_error) {
+               die("Connection failed: " . $conn->connect_error);
+              } 
+			   $sql = "SELECT * FROM user WHERE ul_id='$currentU'";
+			   $result = mysqli_query($conn,$sql);
+			   if (mysqli_num_rows($result) > 0) {
+			     while($row = mysqli_fetch_assoc($result)) {
+				   $isMod=$row["is_moderator"];
+			       
+				   echo "<div class=\"tab\">";
+				   echo " <img src=\"images/images.png\" alt=\"\" id=\"profile\"></a>";
+				   echo  "<h1> User Name: ".$row["first_name"]." ".$row["last_name"]."</h1>";
+				   if($isMod==1){
+				   echo "<h3>Moderator</h3>";}
+				   echo "</div>";
+				   echo " <div class=\"main\">";
+	               echo " <a href=\"editProfile.php\"> Edit Profile</a>";		
+	               echo " <a href=\"changePassword.php\"> Change Password</a>";		
+	               echo "  <h1> About User: </h1>";		
+				   echo "<table class=\"info\">";
+				   echo "<tr>";		
+                   echo "<td><h2>Happiness Points:</h2></td><td>".$row["reputation"]."</td>";		  
+				   echo "</tr>";				   
+                   echo "<tr><td><h2>Field of Study:</h2></td> <td>".$row["field"]."</td>";				   
+                   echo "</tr><tr><td><h2>Contact Email:</h2></td><td>".$row["ul_email"]."</td>";				   
+                   echo "</tr></table>";	
+  				   echo "</div>";
+				 }
+			   }       
+             $conn->close();
+			 ?>   
 		</div>
 	</div>
 	<!-- Sidebar -->
