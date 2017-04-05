@@ -3,14 +3,14 @@ Things to Do:           -Task Stream(Customise with tags, don’t show tasks tha
                         -Validation of sign up
                         -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) 
                         -View create tasks/my tasks(Task owner can view claimants email, first and last name if task claimed) -Aoife
-                       -Reviewer Rating( Task owner to give feedback on completed work, i.e happy/unhappy. + or – 5 reputation depending on rating)
+                        -Reviewer Rating( Task owner to give feedback on completed work, i.e happy/unhappy. + or – 5 reputation depending on rating)
                         -Search (Tags or titles or users) - Shíofra                                  
                         - View Claimed task list(Sort by deadline date for priority, when viewing task they markk as complete and give option of brief textual review and failed submission reduces reputation by 30 marks and claimed status removed )  - Aoife
-                        -	ModTasks(40 marks == mark user asmod, mod tasks mostly done need to be cleaned up + be able to ban users)
-                        -	FILL DB at least 80 tasks (covering different test cases) at least 20 unique tags at least 20 different users, save and put inserts in file 
-                        -USER PROFILE (display logged in users details, have things hidden if its not logged in users i.e editing profile and private details email ect. 
-                                       be able to edit own profile, i.e user name, personal details not email as we already validated it) - AOIFE 
+                       -	FILL DB at least 80 tasks (covering different test cases) at least 20 unique tags at least 20 different users, save and put inserts in file 
+                    
 DONE: Claim task
       Unclaim Task  
       View Task 
+      Set User as Mod on log in if  reputation > 40. 
+      User Profile( editable, details and password can be changed, not email. Only can view your own profile)
       User Reputation (Updating it, the 30 mark reduction for failer and updating user info if above 40 points needs to be done still)
