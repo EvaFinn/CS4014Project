@@ -2,11 +2,6 @@
 <html>
 <link rel="stylesheet" href="assets/css/login.css"/>
 <link rel="stylesheet" href="assets/css/bars.css"/>
-<head>
- <div class="topnav" id="myTopnav">
-           <a href="FAQ.php">FAQ</a>           
-        </div>
-</head>
 <body>
   <body>  
 	<div class="container">
