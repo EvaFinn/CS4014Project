@@ -55,12 +55,13 @@
 			                 if (mysqli_num_rows($result) > 0) {
 			                    while($row = mysqli_fetch_assoc($result)) {
 								$isFlagged=$row["flagged"];
+								$isClaimed=$row["claimed"];
 								if(!($isFlagged==1)){
+								if(!($isClaimed==1)){
 						          echo "<div class = \"boxed\">";
 				                  echo "<div class=\"h_iframe\">";
-				                  echo "<h1>" . $row["task_title"]. "</h1>";
-				                  echo "<p>Desciption: " . $row["task_description"].
-								  "<br>Pages: ".$row["task_pages"]."</p>";		
+				                  echo "<h2>" . $row["task_title"]. "</h2>";
+				                  echo "<p><b>Desciption:</b> " . $row["task_description"];		
 							      echo "<div class=\"boxed2\">";
 				                  $currentTask=$row["task_id"];
 				                  $tags="SELECT tag_name FROM `task_tag` where task_id = '$currentTask'";
@@ -69,17 +70,20 @@
 				                 while($trow=mysqli_fetch_array($tresult)){
 				                     echo "#" ,$trow["tag_name"]. ",";
 				                  }
+								 $id=$_SESSION['username'];
 						         echo"</div>";
                                  echo"</div>";						  
                                  echo"</div>";						  
 						         echo"  <div class=\"boxed\">
-	                             <a class=\"link2\" href=\"./claimTaskCode.php?task_id=$currentTask\"\">Claim Task </a>						 
+	                             <a class=\"link2\" href=\"./claimTaskCode.php?task_id=$currentTask&userID=$id\"\">Claim Task </a>						 
 	                             <a class=\"link2\" href=\"./viewTask.php?task_id=$currentTask\"\">View Task</a>						 
-	                             <a class=\"link\" href=\"./flagTask.php?task_id=$currentTask\">Flag Task</a> 
+	                             <a class=\"link\" href=\"./flagTask.php?task_id=$currentTask&userID=$id\">Flag Task</a> 
                                  </div><br><br>";
+															
 								 }
 				                }
 			                  }       
+							  }
                            $conn->close();
                         ?>
 			        </div>
