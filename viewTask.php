@@ -20,7 +20,7 @@
 <body>
 		<div id="content">
 				<div class="inner">
-				<p> Task's Information </p>
+				<h2> Task's Information </h2>
 				<?php
                 $servername = "localhost";
                 $username = "root";
@@ -38,28 +38,30 @@
 			   $result = mysqli_query($conn,$sql);
 			   if (mysqli_num_rows($result) > 0) {
 			     while($row = mysqli_fetch_assoc($result)) {
-				  echo "Title: " . $row["task_title"]. 
-				  "<br>Desciption: " . $row["task_description"].
-				  "<br>Pages: ".$row["task_pages"].
-				  "<br>Word Count:".$row["task_words"].
-				  "<br>Format:".$row["task_format"].
-				  "<br>Due:".$row["submit_by"].
-				  "<br>Claim Before:".$row["claimed_by"]. "<br>";
-				  
+			
+				   echo "<div class=\"boxed\">";
+				   echo "<h2>" . $row["task_title"]. "</h2>";
+				   echo  "</div>";
+				   echo "<div class = \"boxed\">";
+				   echo "<p><b>Desciption: </b>" . $row["task_description"]."</p>";
+	               echo "<p><b>Pages: </b> ".$row["task_pages"]."</p>";		
+	               echo "<p><b>Word Count:</b> ".$row["task_words"]."</p>";		
+				   echo "<p><b>Format:</b> ".$row["task_format"]."</p>";
+				   echo "<p><b>Due:</b> ".$row["submit_by"]."</p>";		
+                   echo "</div>";				   
+                 				   
 				 }
 			   }       
              $conn->close();
              ?> <!--Change so the user cannot claim task if it is their task-->
-			 <form action="claimTaskCode.php">
-			 <input type="submit" value="Claim Task">
-			 </form>
+			    <a href="#" onclick="history.go(-1);">Back</a>  
 			</div>
 		</div>
 	<!-- Sidebar -->
 			<div id="sidebar">
 
 				<!-- Logo -->
-					<h1 id="logo"><a href="mainPage.html"></a></h1>
+					<h1 id="logo"><a href="mainPage.php"></a></h1>
 
 				<!-- Nav -->
 					<nav id="nav">
