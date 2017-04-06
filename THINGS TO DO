@@ -13,4 +13,4 @@ DONE: Claim task
       View Task 
       Set User as Mod on log in if  reputation > 40. 
       User Profile( editable, details and password can be changed, not email. Only can view your own profile)
-      User Reputation (Updating it, the 30 mark reduction for failer and updating user info if above 40 points needs to be done still)
+      User Reputation (Updating it, the 30 mark reduction for failer)
