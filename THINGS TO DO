@@ -3,9 +3,8 @@ Things to Do:           -Task Stream(Customise with tags, don’t show tasks tha
                         -Validation of sign up
                         -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) 
                         -View create tasks/my tasks(Task owner can view claimants email, first and last name if task claimed) -Aoife
-                        -Reviewer Rating( Task owner to give feedback on completed work, i.e happy/unhappy. + or – 5 reputation depending on rating) - Aoife 
                         -Search (Tags or titles or users) - Shíofra                                  
-                        - View Claimed task list(Sort by deadline date for priority, when viewing task they markk as complete and give option of brief textual review and failed submission reduces reputation by 30 marks and claimed status removed )  - Aoife
+                        - View Claimed task list(Sort by deadline date for priority)  - Aoife
                        -	FILL DB at least 80 tasks (covering different test cases) at least 20 unique tags at least 20 different users, save and put inserts in file 
                     
 DONE: Claim task
@@ -13,4 +12,5 @@ DONE: Claim task
       View Task 
       Set User as Mod on log in if  reputation > 40. 
       User Profile( editable, details and password can be changed, not email. Only can view your own profile)
-      User Reputation (Updating it, the 30 mark reduction for failer)
+      User Reputation ( the 30 mark reduction for failer still to do)
+      Reviewer Rating 
