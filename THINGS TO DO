@@ -1,9 +1,12 @@
-Things to Do:           -Task Stream(Customise with tags, don’t show tasks that are past deadline )
+Things to Do:         
                         -Registration - Eva
-                        -Validation of sign up
+                        -Dates for  tasks
+                        -Change task stream so it is listed by dates.
+                        -Change main task stream for personalised tags.
+                        -Validation of sign up using Javascript
                         -Create Task(Fix so 5 inputs for tags so it create tag in db if doesnt exist already) 
-                        -View create tasks/my tasks(Task owner can view claimants email, first and last name if task claimed) -Aoife
-                        -Search (Tags or titles or users) - Shíofra                                  
+                         -View create tasks/my tasks(Task owner can view claimants email, first and last name if task claimed) -Aoife
+                         -Search (Tags or titles or users) - Shíofra                                  
                         - View Claimed task list(Sort by deadline date for priority)  - Aoife
                        -	FILL DB at least 80 tasks (covering different test cases) at least 20 unique tags at least 20 different users, save and put inserts in file 
                     
