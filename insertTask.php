@@ -13,14 +13,14 @@
 		$subject = (isset($_POST['subject'])?$_POST['subject']:'');
 		$count = (isset($_POST['count'])?$_POST['count']:'');
 		$pages = (isset($_POST['pages'])?$_POST['pages']:'');
-		$description = (isset($_POST['description'])?$_POST['description']:'');
+		$description = (isset($_POST['field5'])?$_POST['field5']:'');
 		$tags = (isset($_POST['tags'])?$_POST['tags']:'');
 		$sql="INSERT INTO `task` (`task_id`, `task_title`, `task_type`, `task_description`, `task_pages`, `task_words`, `task_format`, `claimed`, `flagged`, `complete`, `cancelled`, `failed`, `created`, `claimed_by`, `submit_by`) VALUES (NULL, '$title', '$subject', '$description', '$count', '$pages', '.txt', '0', '0', '0', '0', '0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 		mysqli_query($conn,$sql);
 		if (mysqli_affected_rows($conn)>0) {
-   //echo "Sucess";
-   require("mainPage.php");
-}
-else{echo "failure";}
+   			//echo "Sucess";
+   			require("mainPage.php");
+		}
+		else{echo "failure";}
 		$conn->close();
 ?>
