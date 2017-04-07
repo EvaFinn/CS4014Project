@@ -41,7 +41,7 @@
 	    </li>
         <li>
           <label>Document Description</label>
-           <textarea name="field5" id="description"></textarea>
+           <textarea name="field5" id="description" maxlength="500"></textarea>
         </li>
       	<li>
 		  <label> Document Tags</label>
@@ -149,5 +149,5 @@
 							</table>
 						</div>
 					</section>
-				</body>
+</body>
 </html>
