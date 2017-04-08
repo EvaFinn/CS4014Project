@@ -55,6 +55,11 @@
        float: right;
 	   padding:10px;
     }
+textarea{
+    width: 50%;
+    height: 150px;
+	}
+
 
 /* Box Model */
 
