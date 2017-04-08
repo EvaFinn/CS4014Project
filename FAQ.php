@@ -14,36 +14,38 @@
 <body>
 <div id="content">
 	<div class="inner">
-         <article class="box post post-excerpt">
+     <div class = "boxed">
+	   <div class=\"h_iframe">
 				<header> 
 				    <h2> Our Website</h2>
 					<p></p>
 				</header>							
 		</article>
-		<article class="box post post-excerpt">
+		<article>
 				<header> 
 				    <h3> Can someone without a university of Limerick email address sign up?</h3>
-					<p></p>
+					<p> Unfortunately no, this website is made for members of the University of Limerick.</p>
 				</header>							
 		</article>
-		<article class="box post post-excerpt">
+		<article >
 				<header> 
 				    <h3> What is happiness?</h3>
-					<p></p>
+					<p> Happiness is how users are percieved by the website and users. The more active users will have more happiness.</p>
 				</header>							
 		</article>
-		<article class="box post post-excerpt">
+		<article>
 				<header> 
 				    <h3> How do I claim a task?</h3>
-					<p></p>
+					<p>Claiming task is simple, just click claim task on the main page or on a searched for task, and it will appear in your claimed task page.</p>
 				</header>							
 		</article>
-		<article class="box post post-excerpt">
+		<article>
 				<header> 
 				    <h3> How do I become a moderator?</h3>
-					<p></p>
+					<p>Users who are extremely helpful and have positive feedback will be upgraded to a moderator. Be careful though, abusing the moderator tasks may result in a ban or removal of moderator status</p>
 				</header>							
-		</article>
+		</div>
+	  </div>
     </div>
 </div>
 <div id="sidebar">
