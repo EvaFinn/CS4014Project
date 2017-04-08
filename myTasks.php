@@ -21,13 +21,14 @@
 		<div id="content">
 				<div class="inner">
 				<h2> My Tasks</h2>
-				<div class="boxed"> 
+								<div class="boxed"> 
 				<?php
 				 $userID = $_SESSION['username'];
                  $servername = "localhost";
                  $username = "root";
                  $password = "softwarepro";
                  $db_name = "docdoc"; 
+				 $currentTask=0;
                  // Create connection
                  $conn = new mysqli($servername, $username, $password, $db_name);
                 // Check connection
@@ -39,17 +40,42 @@
 				 $num=mysqli_num_rows($result);
               	 while($row = mysqli_fetch_array($result))
                  { 
-				  echo "<h1>" . $row["task_title"]. "</h1>";
+				  $currentTask=$row["task_id"];
+				  echo "<h2>" . $row["task_title"]. "</h2>";
 				  echo "<p>Desciption: " . $row["task_description"].
 				  "<br>Pages: ".$row["task_pages"]."</p>";
 				  echo"<p>Word Count:".$row["task_words"]."</p>";		
 				  if($row["cancelled"]==1){
-				  echo"<p>Claimed Status: Cancelled";}
-				  else{if($row["claimed"]==1){echo"<p>Claimed Status: Claimed</p>";}
-				  else{echo"<p>Claimed Status: Unclaimed";}
+				  echo"<p>Claimed Status: Cancelled</p>";
 				  }
+				  else{
+				    if($row["claimed"]==1)
+				     {
+				      echo"<p>Claimed Status: Claimed</p>";
+					  $sql2="SELECT * FROM user NATURAL JOIN claimed_tasks WHERE claimed_tasks.task_id='$currentTask' AND claimed_tasks.hidden_id = user.ul_id" ;
+					  $names=mysqli_query($conn,$sql2);
+					  $nameR=mysqli_fetch_array($names);
+					  echo"<p>Claimee Name: ".$nameR["first_name"]." ".$nameR["last_name"]."</p>";
+					  echo"<p>Claimee Email: ".$nameR["ul_email"]."</p>";
+					 }
+				    else
+				    {
+				     echo"<p>Claimed Status: Unclaimed</p>";}
+				    }
+				  if($row["complete"]==1 && $row["review"]!=''){
+					     echo"<a href=\"./viewReview.php?task_id=$currentTask\"> View Review</a>";
+					}
+				  if($row["complete"]==1 && $row["review"]==''){
+					     echo"<b>Complete Status: Task Complete</b>";
+					}
+				  if($row["complete"]==1 && $row["review"]!=''){
+					     echo"Complete Status: Pending.";
+					}
+					  if($row["complete"]==0){
+					     echo"Complete Status: Uncomplete.";
+					}
                   echo "<div class=\"boxed2\">";// Change so claimed user name and email display as well 
-				  $currentTask=$row["task_id"];
+				   
 				   $tags="SELECT tag_name FROM `task_tag` where task_id = $currentTask";
 				   $tresult=mysqli_query($conn,$tags);
 				   $num=mysqli_num_rows($result);
@@ -58,8 +84,8 @@
 				   }
 				  echo" </div>
                         <div class=\"boxed\">
-						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a>         
-                        </div></br>";			
+						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a>";             
+                      echo "</div></br>";			
                  }				 
 			    
                 $conn->close();
