@@ -21,7 +21,7 @@
 		<div id="content">
 				<div class="inner">
 				<h2> My Tasks</h2>
-								<div class="boxed"> 
+				<div class="boxed"> 
 				<?php
 				 $userID = $_SESSION['username'];
                  $servername = "localhost";
@@ -108,13 +108,13 @@
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li class=\"current\"><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li ><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li><a href=\"./ModTasks.php\">Moderator Taks</a></li>");
+								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
 							    printf("<li ><a href=\"./mainPage.php\">Home</a></li>");
-                                printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+                                printf("<li class=\"current\"><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li ><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 							}							
                            ?>   
 						</ul>
