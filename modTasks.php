@@ -58,6 +58,7 @@
 				  echo" </div>
                         <div class=\"boxed\">
 						  <a href=\"./deleteTask.php?task_id=$currentTask\"> Delete Task</a>
+						  <a href=\"./unflag.php?task_id=$currentTask\">Unflag Task</a>
 						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a> 
 						  <a href=\"./banUser.php?task_id=$currentTask\"> Ban User</a>	           
                         </div></br>";						
@@ -84,7 +85,7 @@
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li class=\"current\"><a href=\"./ModTasks.php\">Moderator Taks</a></li>");
+								printf("<li class=\"current\"><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
