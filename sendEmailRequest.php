@@ -24,6 +24,9 @@
        $message = "Hello- User: $currentUser has requested you email them the file of your task: $currentT";
        $headers = "From: $currentUEmail";
        //Should send email but functionallity isnt in place
-	   header("Location: claimedTasks.php")
+	   $link = "<script>window.open('https://outlook.office.com/owa/');</script>";     
+	   echo $link;
+	   echo "<a href=\"#\" onclick=\"history.go(-1);\">Back</a>";
+	  $conn->close();
      ?>
 	 
