@@ -22,9 +22,12 @@
 				<div class="inner">
 				  <h2>Ban User:</h2><!--Search for user ID using the task ID -->
 	                <div class="task">
-	                  <form action="" method="POST"> <!--Create php to update banned user table with user details and remove user from user list -->
-					   <label>Reason For Ban</label>
-                          <textarea name="field" id="reason"></textarea>
+					<?php
+					$currentT = $_GET["task_id"];
+	                 echo" <form action=\"banUserCode.php?taskid='$currentT'\" method=\"POST\">";
+					 ?>
+   					  <label>Reason For Ban</label>
+                          <textarea name="reason" id="reason"></textarea>
 						 <input type="submit" value="Submit" name="submit"/> 
 					  </form>
 				</div>
@@ -44,7 +47,7 @@
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li><a href=\"./ModTasks.php\">Moderator Taks</a></li>");
+								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
