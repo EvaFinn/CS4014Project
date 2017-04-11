@@ -8,13 +8,14 @@
 <title>Request File</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
-          <?php
+         <?php
 		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+			     $currentU=$_SESSION["username"];
                  printf("<a href=\"./LogOut.php\"> Log Out</a>");
-                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./UserProfile.php?userid=$currentU\">My Profile</a>");
                  printf("<a href=\"./FAQ.php\">FAQ</a>");
 				}	
-            ?>      
+            ?>     
 </div>
 </head>
 <body>
@@ -25,9 +26,22 @@
 	<?php	
 	$currentT=$_GET["task_id"];
 	$currentUser=$_SESSION["username"];
-	
+	$host = "localhost"; 
+    $username = "root";
+    $password = "softwarepro"; 
+    $db_name = "docdoc"; 
+    $conn = new mysqli($host, $username, $password, $db_name);
+   if ($conn->connect_error) {
+                             die("Connection failed: " . $conn->connect_error);
+                              } 	
+    $sql="SELECT * from user_task NATURAL JOIN user WHERE task_id='$currentT'"		;					  
+    $res = mysqli_query($conn,$sql);
+	$row = mysqli_fetch_assoc($res);
+	$email = $row["ul_email"];
 	echo "<h3>Please make use of the sample email format shown below.</h3>"; 
 	echo "<TEXTAREA ID=\"holdtext\">";
+	echo "Task owner email: $email";
+    echo "\n";
     echo "Dear Task Owner, I would like to request the file for task: $currentT. To review the task as indicated.";
 	echo "Regards,$currentUser";	
     echo"</TEXTAREA>";
@@ -109,11 +123,11 @@
 										<td><span>20</span></td>
 										<td><span>21</span></td>
 										<td><span>22</span></td>
-										<td><a href="#">23</a></td>
+										<td><a >23</a></td>
 										<td><span>24</span></td>
 									</tr>
 									<tr>
-										<td><a href="#">25</a></td>
+										<td><a>25</a></td>
 										<td><span>26</span></td>
 										<td><span>27</span></td>
 										<td><span>28</span></td>
