@@ -17,7 +17,7 @@
 		$sql="UPDATE `user` SET `first_name`='$First',`last_name`='$Last',`field`='$Field' WHERE ul_id=$currentUser";
 		mysqli_query($conn,$sql);
 		if (mysqli_affected_rows($conn)>0) {
-        header("Location: UserProfile.php");
+          header("Location: UserProfile.php?userid=$currentUser");
 }
 else{
 echo "Failure. Please Fill in all the fields. ";
