@@ -25,6 +25,11 @@ $_SESSION['password']= "$password";
    $sql1 ="SELECT * FROM `user` WHERE ul_id =$myusername";
    $res=mysqli_query($conn,$sql1);
    $data=mysqli_fetch_array($res);
+ if($data["is_banned"]=1)
+   {
+     header("Location:bannedPage.php");  
+   }
+   else{
     if($data["reputation"]>=40){
 	$sql2 = "UPDATE `user` SET is_moderator=1 WHERE ul_id=$myusername";
 	   $res1=mysqli_query($conn,$sql2);
@@ -42,6 +47,7 @@ $_SESSION['password']= "$password";
 	}	  
 $_SESSION['is_moderator'] = "$isMod";
 header("Location: mainPage.php");
+}
 }
 else {
         printf("Invalid username or password");
