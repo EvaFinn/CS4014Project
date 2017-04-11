@@ -10,12 +10,13 @@
 <link rel="stylesheet" href="assets/css/sampProfile.css"/>
 <div class="topnav" id="myTopnav">
            <?php
-		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){/* NEED TO FIX SO LOGGED IN USER IS SET*/ 
+		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+			     $currentU=$_SESSION["username"];
                  printf("<a href=\"./LogOut.php\"> Log Out</a>");
-                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./UserProfile.php?userid=$currentU\">My Profile</a>");
                  printf("<a href=\"./FAQ.php\">FAQ</a>");
 				}	
-            ?>        
+            ?>       
 </div>
 </head>
 <body>
@@ -26,14 +27,15 @@
                 $username = "root";
                 $password = "softwarepro";
                 $db_name = "docdoc";          
-				$currentU = $_SESSION['username'];
+				$userProfile = $_GET['userid'];
+				$currentU=$_SESSION["username"];
                 // Create connection
                $conn = new mysqli($servername, $username, $password, $db_name);
                // Check connection
                if ($conn->connect_error) {
                die("Connection failed: " . $conn->connect_error);
               } 
-			   $sql = "SELECT * FROM user WHERE ul_id='$currentU'";
+			   $sql = "SELECT * FROM user WHERE ul_id='$userProfile'";
 			   $result = mysqli_query($conn,$sql);
 			   if (mysqli_num_rows($result) > 0) {
 			     while($row = mysqli_fetch_assoc($result)) {
@@ -46,8 +48,10 @@
 				   echo "<h3>Moderator</h3>";}
 				   echo "</div>";
 				   echo " <div class=\"main\">";
+				   if($userProfile == $currentU){
 	               echo " <a href=\"editProfile.php\"> Edit Profile</a>";		
 	               echo " <a href=\"changePassword.php\"> Change Password</a>";		
+				   }
 	               echo "  <h1> About User: </h1>";		
 				   echo "<table class=\"info\">";
 				   echo "<tr>";		
