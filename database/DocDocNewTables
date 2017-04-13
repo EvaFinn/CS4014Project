@@ -1,0 +1,352 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Apr 13, 2017 at 01:11 PM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `docdoc`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banned_users`
+--
+
+CREATE TABLE `banned_users` (
+  `banned_id` int(8) NOT NULL,
+  `banned_email` varchar(64) NOT NULL,
+  `banned_reason` varchar(240) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `claimed_tasks`
+--
+
+CREATE TABLE `claimed_tasks` (
+  `task_id` int(4) NOT NULL,
+  `claimed_by_ul_id` int(8) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `completed_tasks`
+--
+
+CREATE TABLE `completed_tasks` (
+  `task_id` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deleted_tasks`
+--
+
+CREATE TABLE `deleted_tasks` (
+  `task_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_tasks`
+--
+
+CREATE TABLE `failed_tasks` (
+  `task_id` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flagged_tasks`
+--
+
+CREATE TABLE `flagged_tasks` (
+  `task_id` int(4) NOT NULL,
+  `flagged_by_ul_id` int(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `is_user_moderator`
+--
+
+CREATE TABLE `is_user_moderator` (
+  `ul_id` int(8) NOT NULL,
+  `is_moderator` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tags`
+--
+
+CREATE TABLE `tags` (
+  `tag_id` int(4) NOT NULL,
+  `tag_name` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `task`
+--
+
+CREATE TABLE `task` (
+  `task_id` int(4) NOT NULL,
+  `task_title` varchar(64) NOT NULL,
+  `task_type` varchar(16) NOT NULL,
+  `task_description` varchar(240) NOT NULL,
+  `task_pages` int(6) NOT NULL,
+  `task_words` int(10) NOT NULL,
+  `task_format` varchar(6) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `claimed_by` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `submit_by` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `task_tag`
+--
+
+CREATE TABLE `task_tag` (
+  `tag_id` int(4) NOT NULL,
+  `task_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unverified_user`
+--
+
+CREATE TABLE `unverified_user` (
+  `ul_id` int(8) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `ul_email` varchar(36) NOT NULL,
+  `first_name` varchar(16) NOT NULL,
+  `last_name` varchar(26) NOT NULL,
+  `field` varchar(26) NOT NULL,
+  `verification_code` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores all user information for quicker queries';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_favourite_tags`
+--
+
+CREATE TABLE `user_favourite_tags` (
+  `ul_id` int(8) NOT NULL,
+  `favourite_tag_1` int(3) NOT NULL,
+  `favourite_tag_2` int(3) NOT NULL,
+  `favourite_tag_3` int(3) NOT NULL,
+  `favourite_tag_4` int(3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_most_recent_viewed`
+--
+
+CREATE TABLE `user_most_recent_viewed` (
+  `ul_id` int(8) NOT NULL,
+  `most_recent_viewed_task_1` int(4) NOT NULL,
+  `most_recent_viewed_task_2` int(4) NOT NULL,
+  `most_recent_viewed_task_3` int(4) NOT NULL,
+  `most_recent_viewed_task_4` int(4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_reputation`
+--
+
+CREATE TABLE `user_reputation` (
+  `ul_id` int(8) NOT NULL,
+  `reputation` int(3) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_task`
+--
+
+CREATE TABLE `user_task` (
+  `ul_id` int(8) NOT NULL,
+  `task_id` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verified_user`
+--
+
+CREATE TABLE `verified_user` (
+  `ul_id` int(8) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `ul_email` varchar(36) NOT NULL,
+  `first_name` varchar(16) NOT NULL,
+  `last_name` varchar(26) NOT NULL,
+  `field` varchar(26) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores all user information for quicker queries';
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `banned_users`
+--
+ALTER TABLE `banned_users`
+  ADD PRIMARY KEY (`banned_id`);
+
+--
+-- Indexes for table `claimed_tasks`
+--
+ALTER TABLE `claimed_tasks`
+  ADD PRIMARY KEY (`task_id`);
+
+--
+-- Indexes for table `completed_tasks`
+--
+ALTER TABLE `completed_tasks`
+  ADD PRIMARY KEY (`task_id`);
+
+--
+-- Indexes for table `deleted_tasks`
+--
+ALTER TABLE `deleted_tasks`
+  ADD PRIMARY KEY (`task_id`);
+
+--
+-- Indexes for table `failed_tasks`
+--
+ALTER TABLE `failed_tasks`
+  ADD PRIMARY KEY (`task_id`);
+
+--
+-- Indexes for table `flagged_tasks`
+--
+ALTER TABLE `flagged_tasks`
+  ADD PRIMARY KEY (`task_id`);
+
+--
+-- Indexes for table `is_user_moderator`
+--
+ALTER TABLE `is_user_moderator`
+  ADD PRIMARY KEY (`ul_id`);
+
+--
+-- Indexes for table `tags`
+--
+ALTER TABLE `tags`
+  ADD PRIMARY KEY (`tag_id`);
+
+--
+-- Indexes for table `task`
+--
+ALTER TABLE `task`
+  ADD PRIMARY KEY (`task_id`);
+
+--
+-- Indexes for table `task_tag`
+--
+ALTER TABLE `task_tag`
+  ADD PRIMARY KEY (`tag_id`,`task_id`);
+
+--
+-- Indexes for table `unverified_user`
+--
+ALTER TABLE `unverified_user`
+  ADD PRIMARY KEY (`ul_id`);
+
+--
+-- Indexes for table `user_favourite_tags`
+--
+ALTER TABLE `user_favourite_tags`
+  ADD PRIMARY KEY (`ul_id`);
+
+--
+-- Indexes for table `user_most_recent_viewed`
+--
+ALTER TABLE `user_most_recent_viewed`
+  ADD PRIMARY KEY (`ul_id`);
+
+--
+-- Indexes for table `user_reputation`
+--
+ALTER TABLE `user_reputation`
+  ADD PRIMARY KEY (`ul_id`);
+
+--
+-- Indexes for table `user_task`
+--
+ALTER TABLE `user_task`
+  ADD PRIMARY KEY (`ul_id`,`task_id`);
+
+--
+-- Indexes for table `verified_user`
+--
+ALTER TABLE `verified_user`
+  ADD PRIMARY KEY (`ul_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tags`
+--
+ALTER TABLE `tags`
+  MODIFY `tag_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `task`
+--
+ALTER TABLE `task`
+  MODIFY `task_id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `deleted_tasks`
+--
+ALTER TABLE `deleted_tasks`
+  ADD CONSTRAINT `deleted_tasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `flagged_tasks`
+--
+ALTER TABLE `flagged_tasks`
+  ADD CONSTRAINT `flagged_tasks_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
