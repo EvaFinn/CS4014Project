@@ -23,6 +23,9 @@
 			<div>
 			     <input type="text" placeholder="Field Of Study" name="field" required>
 		    </div>
+	             <div> 
+			    <input type="password" placeholder="Password" name="passw" required>
+			</div>	
 			<div>
 	             <input type="submit" value="Register" name="register">
 				 <a href="LogInPage.php">Cancel</a>
