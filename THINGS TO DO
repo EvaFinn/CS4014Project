@@ -1,6 +1,4 @@
-Things to Do:       
-                        -Registration - Eva
-                        -Dates for  tasks
+Things to Do:                     
                         -Change task stream so it is listed by dates.
                         -Change main task stream for personalised tags.
                         -Validation of sign up using Javascript
@@ -12,6 +10,8 @@ Things to Do:
 DONE: Claim task
       Unclaim Task  
       View Task 
+      Registation
+      Dates for Tasks. 
       Set User as Mod on log in if  reputation > 40. 
       User Profile( editable, details and password can be changed, not email. Only can view your own profile)
       User Reputation ( the 30 mark reduction for failer still to do)
