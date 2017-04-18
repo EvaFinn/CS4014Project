@@ -17,11 +17,10 @@
             ?>          
 </div>
 </head>
-<body>
-		<div id="content">
+<body>		<div id="content">
 				<div class="inner">
 				<h2> My Tasks</h2>
-				<div class="boxed"> 
+				
 				<?php
 				 $userID = $_SESSION['username'];
                  $servername = "localhost";
@@ -35,9 +34,13 @@
                if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
                 }    
-             	 $sql = "SELECT * FROM `task` NATURAL JOIN `user_task` where user_task.ul_id = $userID";
+             	 $sql = "SELECT * FROM `task` NATURAL JOIN `user_task` where user_task.ul_id = '$userID'";
 				 $result = mysqli_query($conn,$sql);
 				 $num=mysqli_num_rows($result);
+				 if($num==0){
+				 echo"No Tasks currently created.";}
+				 else{
+				  echo"<div class=\"boxed\"> ";
               	 while($row = mysqli_fetch_array($result))
                  { 
 				  $currentTask=$row["task_id"];
@@ -87,7 +90,7 @@
 						  <a href=\"./viewTask.php?task_id=$currentTask\"> View Task</a>";             
                       echo "</div></br>";			
                  }				 
-			    
+			    }
                 $conn->close();
                  ?>
                          </div>
