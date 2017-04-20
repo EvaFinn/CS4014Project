@@ -79,7 +79,6 @@
 							</table>
 						</div>
 					</section>
-</div>
-  			<script src="assets/js/sampJs.js"></script>
+	</div>
 </body>
 </html>
