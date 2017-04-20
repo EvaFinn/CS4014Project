@@ -7,9 +7,10 @@
 	<head>
 	    <div class="topnav" id="myTopnav">
 		 <?php
-		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){/* NEED TO FIX SO LOGGED IN USER IS SET*/ 
+		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+			     $currentU=$_SESSION["username"];
                  printf("<a href=\"./LogOut.php\"> Log Out</a>");
-                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./UserProfile.php?userid=$currentU\">My Profile</a>");
                  printf("<a href=\"./FAQ.php\">FAQ</a>");
 				}	
             ?>   
@@ -40,18 +41,24 @@
                         <div class="h_iframe">
 						  <?php
                            $servername = "localhost";
-                           $username = "root";
-                           $password = "softwarepro";
+                           $username = "";
+                           $password = "";
                            $db_name = "docdoc"; 
                            $tbl_name = "task";
+						   $currentU=$_SESSION["username"];
                            // Create connection
                              $conn = new mysqli($servername, $username, $password, $db_name);
                            // Check connection
                             if ($conn->connect_error) {
                              die("Connection failed: " . $conn->connect_error);
                               } 
-			                 $sql = "SELECT * FROM `task`";
+			                 $sql = "SELECT task.* FROM task NATURAL JOIN task_tag NATURAL JOIN favourite_tags WHERE ul_id = '$currentU'
+							 AND task_tag.tag_id IN(favourite_tags.favourite_tag_1, favourite_tags.favourite_tag_2, favourite_tags.favourite_tag_3, favourite_tags.favourite_tag_4, favourite_tags.favourite_tag_5) GROUP BY task.claimed_by,task.task_id ORDER BY task.claimed_by ASC";
 			                 $result = mysqli_query($conn,$sql);
+							 if(mysqli_num_rows($result)==0){
+							   $sql = "SELECT * FROM `task`";
+			                  $result = mysqli_query($conn,$sql);
+							 }
 			                 if (mysqli_num_rows($result) > 0) {
 			                    while($row = mysqli_fetch_assoc($result)) {
 								$isFlagged=$row["flagged"];
@@ -105,6 +112,7 @@
                              if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li class=\"current\"><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./mytags.php\">Favourited Tags</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
@@ -112,6 +120,7 @@
                             else{
 							    printf("<li class=\"current\"><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./myTags.php\">Favourited Tags</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 								
 							}							
@@ -180,12 +189,6 @@
 							</table>
 						</div>
 					</section>
-
-				<!-- Copyright
-					<ul id="copyright">
-						<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul> -->
-
 			</div>
 
 		<!-- Scripts -->
