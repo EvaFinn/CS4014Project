@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html >
 <head>
-<title>Claimed Tasks</title>
+<title>Create Tasks</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
           <?php
@@ -41,8 +41,18 @@
 	    </li>
         <li>
           <label>Document Description</label>
-           <textarea name="field5" id="description" maxlength="500"></textarea>
+           <textarea name="field5" maxlength="64"></textarea>
         </li>
+		<li>
+		  <label> Claim By Date</label>
+		  <input name="dueD" type="date" placeholder="YYYY-MM-DD"/>
+		  <input name="dueT" type="time" placeholder="hh:mm"/>
+		</li>
+		<li>
+		  <label> Submit Date</label>
+		  <input name="subD" type="date" placeholder="YYYY-MM-DD"/>
+		  <input name="subT" type="time" placeholder="hh:mm"/>
+		</li>
       	<li>
 		  <label> Document Tags</label>
 		  <p>Please input between 1 and 5 tags describing the topics of your paper</p>
@@ -54,13 +64,12 @@
 		  <input type="text" name="tag3"/>
 		    <label> Tag 4</label>
 		  <input type="text" name="tag4"/>
-		    <label> Tag 5</label>
-		  <input type="text" name="tag5"/>
 		</li>
 		   <input type="submit" value="Submit" name="submit"/>       
         </ul>
         </ul>
      </form> 
+	   <a href="#" onclick="history.go(-1);">Back</a>  
 	 </div>
 	</div>
   </div>
@@ -72,18 +81,21 @@
 
 				<!-- Nav -->
 					<nav id="nav">
-						<?php
+						 <?php			   
                              if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
-								printf("<li><a href=\"./ModTasks.php\">Moderator Taks</a></li>");
+                                printf("<li><a href=\"./mytags.php\">Favourited Tags</a></li>");
+                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
-							    printf("<li ><a href=\"./mainPage.php\">Home</a></li>");
+							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+                                printf("<li><a href=\"./myTags.php\">Favourited Tags</a></li>");
+                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								
 							}							
                            ?>   
 					</nav>
