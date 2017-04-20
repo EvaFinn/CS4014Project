@@ -10,22 +10,24 @@
 <div class="topnav" id="myTopnav">
            <?php
 		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+			     $currentU=$_SESSION["username"];
                  printf("<a href=\"./LogOut.php\"> Log Out</a>");
-                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./UserProfile.php?userid=$currentU\">My Profile</a>");
                  printf("<a href=\"./FAQ.php\">FAQ</a>");
 				}	
-            ?>          
+            ?>        
 </div>
 </head>
-<body>		<div id="content">
+<body>
+		<div id="content">
 				<div class="inner">
 				<h2> My Tasks</h2>
 				
 				<?php
 				 $userID = $_SESSION['username'];
                  $servername = "localhost";
-                 $username = "root";
-                 $password = "softwarepro";
+                 $username = "";
+                 $password = "";
                  $db_name = "docdoc"; 
 				 $currentTask=0;
                  // Create connection
@@ -106,20 +108,23 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-						<?php
+						<?php			   
                              if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li class=\"current\"><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li ><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+                                printf("<li><a href=\"./mytags.php\">Favourited Tags</a></li>");
+                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
-							    printf("<li ><a href=\"./mainPage.php\">Home</a></li>");
-                                printf("<li class=\"current\"><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li ><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
+                                printf("<li class=\"current\" ><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./myTags.php\">Favourited Tags</a></li>");
+                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								
 							}							
-                           ?>   
+                           ?>    
 						</ul>
 					</nav>
 
