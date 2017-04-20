@@ -29,8 +29,8 @@
 				<?php
 				 $userID = $_SESSION['username'];
                  $servername = "localhost";
-                 $username = "root";
-                 $password = "softwarepro";
+                 $username = "";
+                 $password = "";
                  $db_name = "docdoc"; 
                  // Create connection
                  $conn = new mysqli($servername, $username, $password, $db_name);
@@ -89,17 +89,19 @@
 						<?php
                              if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
-                                printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");  
+								printf("<li><a href=\"./mytags.php\">Favourited Tags</a></li>");
                                 printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
 							    printf("<li ><a href=\"./mainPage.php\">Home</a></li>");
-                                printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>"); 
+								printf("<li><a href=\"./myTags.php\">Favourited Tags</a></li>");
                                 printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 							}							
-                           ?>   
+                           ?>  
 						</ul>
 					</nav>
 
