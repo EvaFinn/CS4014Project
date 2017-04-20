@@ -23,8 +23,8 @@
 				<h2> Task's Information </h2>
 				<?php
                 $servername = "localhost";
-                $username = "root";
-                $password = "softwarepro";
+                $username = "";
+                $password = "";
                 $db_name = "docdoc"; 
                 $tbl_name = "task";
 				$currentT= $_GET['task_id'];
