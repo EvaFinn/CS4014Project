@@ -42,10 +42,11 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-						<?php
+						 <?php			   
                              if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./mytags.php\">Favourited Tags</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
@@ -53,9 +54,11 @@
                             else{
 							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
+                                printf("<li><a href=\"./myTags.php\">Favourited Tags</a></li>");
                                 printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								
 							}							
-                           ?> 
+                           ?>   
 						</ul>
 					</nav>
 	
