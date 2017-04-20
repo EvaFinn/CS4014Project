@@ -1,7 +1,7 @@
 <?php
     $servername = "localhost";
-    $username = "root";
-    $password = "softwarepro";
+    $username = "";
+    $password = "";
     $db_name = "docdoc"; 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $db_name);
@@ -21,5 +21,5 @@
 	$sql .= "UPDATE user SET is_banned='1' WHERE ul_id='$userID'";
     mysqli_multi_query($conn, $sql) or die("MySQL Error: " . mysqli_error($conn) . "<hr>\nQuery: $sql");
     $conn->close();
-	header("Location: ModTasks.php");/* DOES NOT REMOVE CLAIMED TASK BY USER YET */
+	header("Location: ModTasks.php"); /* DOES NOT REMOVE CLAIMED TASK BY USER YET */
 ?>
