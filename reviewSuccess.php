@@ -5,16 +5,17 @@
 <!DOCTYPE html>
 <html >
 <head>
-<title>Review Success</title>
+<title>Success</title>
 <link rel="stylesheet" href="assets/css/main.css"/>
 <div class="topnav" id="myTopnav">
-          <?php
+           <?php
 		      if (isset($_SESSION["username"]) && $_SESSION["username"] != ''){
+			     $currentU=$_SESSION["username"];
                  printf("<a href=\"./LogOut.php\"> Log Out</a>");
-                 printf("<a href=\"./UserProfile.php\">Profile</a>");
+                 printf("<a href=\"./UserProfile.php?userid=$currentU\">My Profile</a>");
                  printf("<a href=\"./FAQ.php\">FAQ</a>");
 				}	
-            ?>      
+            ?>     
 </div>
 </head>
 <body>
@@ -33,20 +34,23 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-						<?php
+					 <?php			   
                              if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+                                printf("<li><a href=\"./mytags.php\">Favourited Tags</a></li>");
+                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
-							    printf("<li ><a href=\"./mainPage.php\">Home</a></li>");
+							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+                                printf("<li><a href=\"./myTags.php\">Favourited Tags</a></li>");
+                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								
 							}							
-                           ?>   
+                           ?>    
 						</ul>
 					</nav>
 
