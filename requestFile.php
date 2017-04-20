@@ -27,8 +27,8 @@
 	$currentT=$_GET["task_id"];
 	$currentUser=$_SESSION["username"];
 	$host = "localhost"; 
-    $username = "root";
-    $password = "softwarepro"; 
+    $username = "";
+    $password = ""; 
     $db_name = "docdoc"; 
     $conn = new mysqli($host, $username, $password, $db_name);
    if ($conn->connect_error) {
@@ -50,6 +50,7 @@
     echo "<input type=\"submit\" value=\"Send email\" />";
     echo "</form>";
 	?>
+		  <a class= "link2" href="#" onclick="history.go(-1);">Back</a>  
 	</div>
   </div>
 <!-- Sidebar -->
@@ -60,18 +61,21 @@
 
 				<!-- Nav -->
 					<nav id="nav">
-						<?php
+						 <?php			   
                              if (isset($_SESSION["username"]) && $_SESSION["username"] != '' && $_SESSION["is_moderator"]==1){ 
                                 printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+                                printf("<li><a href=\"./mytags.php\">Favourited Tags</a></li>");
+                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
 								printf("<li><a href=\"./ModTasks.php\">Moderator Tasks</a></li>");
 								
 				            }
                             else{
-							    printf("<li ><a href=\"./mainPage.php\">Home</a></li>");
+							    printf("<li><a href=\"./mainPage.php\">Home</a></li>");
                                 printf("<li><a href=\"./myTasks.php\">My Tasks</a></li>");
-                                printf("<li class=\"current\"><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+                                printf("<li><a href=\"./myTags.php\">Favourited Tags</a></li>");
+                                printf("<li><a href=\"./claimedTasks.php\">Claimed Tasks</a></li>");
+								
 							}							
                            ?>   
 					</nav>
@@ -123,11 +127,11 @@
 										<td><span>20</span></td>
 										<td><span>21</span></td>
 										<td><span>22</span></td>
-										<td><a >23</a></td>
+										<td><a href="#">23</a></td>
 										<td><span>24</span></td>
 									</tr>
 									<tr>
-										<td><a>25</a></td>
+										<td><a href="#">25</a></td>
 										<td><span>26</span></td>
 										<td><span>27</span></td>
 										<td><span>28</span></td>
