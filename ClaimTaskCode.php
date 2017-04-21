@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "root";
+$username = "group7";
 $password = "softwarepro";
-$db_name = "docdoc"; 
+$db_name = "group7"; 
 $userID  = $_GET['userID'];
 $currentT=$_GET['task_id']; 
 // Create connection
