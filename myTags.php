@@ -28,7 +28,7 @@
                     $servername = "localhost";
                     $username = "";
                     $password = "";
-                    $db_name = "docdoc"; 
+                    $db_name = ""; 
 				    $currentTask=0;
                     // Create connection
                    $conn = new mysqli($servername, $username, $password, $db_name);
